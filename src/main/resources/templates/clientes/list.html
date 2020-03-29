@@ -1,0 +1,104 @@
+<!--/* Thymeleaf templating engine, Each token will be replaced by their respective titles in the resulting page. */-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<head>
+    <title>Gestión de Clientes</title>
+</head>
+<body>
+<div layout:fragment="breadcrumb">
+    <h1>Gestión de Clientes</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Clientes</li>
+    </ol>
+</div>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <a class="box-title btn btn-primary" th:href="@{/clientes/form}">Nuevo Cliente</a>
+
+
+                    <div class="box-tools">
+                        <form th:action="@{/clientes/list}" method="get">
+                            <div class="input-group input-group-sm" style="width: 250px;">
+                                <input type="text" name="value" class="form-control pull-right"
+                                       placeholder="Codigo o Ape. Paterno o Ape. Materno o Nom. Completo" th:if="${key} == null"/>
+                                <input type="text" name="value" class="form-control pull-right"
+                                       placeholder="Codigo o Ape. Paterno o Ape. Materno o Nom. Completo" th:if="${key} != null"
+                                       th:value="${key}"/>
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                    Mostras <span sd:page-size-selector="javascript"></span> resultados
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Cod. Socio</th>
+                                <th>Tipo Persona</th>
+                                <th>Tipo Documento</th>
+                                <th>Nro. Documento</th>
+                                <th>Socio</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="st,iter : ${clientes}">
+
+                                <td th:text="${st.codSocio}"></td>
+                                <td th:text="${st.nomTipoPersona}"></td>
+                                <td th:text="${st.nomTipoDocumento}"></td>
+                                <td th:text="${st.nroDocumento}"></td>
+                                <div th:switch="${st.tipoPersona}">
+                                    <td th:case="'2'" th:text="${st.nomCompleto}"/>
+                                    <td th:case="'1'" th:text="${st.razonSocial}"/>
+                                </div>
+                                <td>
+                                    <a href="#" class="btn btn-default" th:href="@{/clientes/form(id=${st.codSocio})}"
+                                       title="Edit Data"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <a href="#" class="btn btn-default" th:href="@{/clientes/delete(id=${st.codSocio})}"
+                                       title="Delete Data"><span class="glyphicon glyphicon-trash"></span></a>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(clientes.content)}">
+                                <td colspan="13" class="text-center">No hay clientes registrados</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div th:if="${not #lists.isEmpty(clientes.content)}">
+
+                    <div sd:pagination-summary="">info</div>
+                    <div class="text-center">
+                        <nav>
+                            <ul class="pagination" sd:pagination="full">
+                                <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                <li class="disabled"><a href="#" aria-label="Previous"><span
+                                        aria-hidden="true">&laquo;</span></a></li>
+                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

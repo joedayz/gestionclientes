@@ -1,0 +1,1219 @@
+<!--/* Thymeleaf templating engine, Each token will be replaced by their respective titles in the resulting page. */-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<head>
+    <script>
+        $(document).ready(function () {
+
+            configurarDatePickers();
+
+
+            $('.inputTipoPersona_hide').addClass('collapse');
+
+
+            $('#inputTipoPersona').change(function () {
+
+                selectedText = $("#inputTipoPersona option:selected").html();
+                $("input[name='nomTipoPersona']").val(selectedText);
+
+                selector = '.inputTipoPersona_' + $(this).val();
+
+                //hide all elements
+                $('.inputTipoPersona_hide').collapse('hide');
+
+                //show only element connected to selected option
+                $(selector).collapse('show');
+            });
+
+            $('#inputTipoDocumento').change(function () {
+
+                selectedText = $("#inputTipoDocumento option:selected").html();
+                $("input[name='nomTipoDocumento']").val(selectedText);
+
+
+            });
+
+
+            $("#inputProvincia").load('/clientes/form/ajax/provincias', $("#inputDepartamento").serialize());
+
+            var selectedText = '';
+
+            $('#inputDepartamento').on('change', function () {
+
+                selectedText = $("#inputDepartamento option:selected").html();
+                $("input[name='direccionNueva.departamento']").val(selectedText);
+
+                $("#inputProvincia").load('/clientes/form/ajax/provincias', $("#inputDepartamento").serialize());
+                $("#inputDistrito").empty();
+
+            });
+
+
+            $('#inputProvincia').on('change', function () {
+
+                selectedText = $("#inputProvincia option:selected").html();
+                $("input[name='direccionNueva.provincia']").val(selectedText);
+
+                $("#inputDistrito").load('/clientes/form/ajax/distritos', $("#inputProvincia").serialize());
+
+            });
+
+            $('#inputDistrito').on('change', function () {
+
+                selectedText = $("#inputDistrito option:selected").html();
+                $("input[name='direccionNueva.distrito']").val(selectedText);
+            });
+
+
+            $('#inputTipoDireccion').on('change', function () {
+
+                var selectedText = $("#inputTipoDireccion option:selected").html();
+
+                $("input[name='direccionNueva.nombreTipoDireccion']").val(selectedText);
+            });
+
+
+            $('button[name="addDireccion"]').click(function (event) {
+                event.preventDefault();
+
+                selectedText = $("#inputTipoDireccion option:selected").html();
+                $("input[name='direccionNueva.nombreTipoDireccion']").val(selectedText);
+
+                selectedText = $("#inputDepartamento option:selected").html();
+                $("input[name='direccionNueva.departamento']").val(selectedText);
+
+                var data = $('form').serialize();
+                selector = $('input[name=parametro]').val();
+                indice = $('input[name=indice]').val();
+
+                if (selector == "addDireccion") {
+                    data = 'addDireccion={}&' + data;
+                } else {
+                    data = 'editDireccion=' + indice + '&' + data;
+                }
+
+                console.log(data);
+                $.post('/clientes/form/ajax/direcciones', data, replaceItems);
+            });
+
+            $('button[name="addRepresentante"]').click(function (event) {
+                event.preventDefault();
+
+                selectedText = $("#inputCargoOtrosJuridico option:selected").html();
+                $("input[name='representanteNuevo.nomCargo']").val(selectedText);
+
+                var data = $('form').serialize();
+                selector = $('input[name=parametroRepresentante]').val();
+                indice = $('input[name=indiceRepresentante]').val();
+
+
+
+                if (selector == "addRepresentante") {
+                    data = 'addRepresentante={}&' + data;
+                } else {
+                    data = 'editRepresentante=' + indice + '&' + data;
+                }
+
+                console.log(data);
+                $.post('/clientes/form/ajax/representantes', data, replaceRepresentantes);
+            });
+
+
+            $("#inputCargaFamiliar").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    //display error message
+                    $("#errmsg").html("Solo Digitos").show().fadeOut("slow");
+                    return false;
+                }
+            });
+            $("#inputTamanho").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    //display error message
+                    $("#errTammsg").html("Solo Digitos").show().fadeOut("slow");
+                    return false;
+                }
+            });
+
+
+
+            mostrarTipoPersona();
+
+        });
+
+        function configurarDatePickers() {
+            var date_input1 = $('#inputFechaNacimiento'); //our date input has the name "date"
+            var container1 = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input1.datepicker({
+                format: 'dd/mm/yyyy',
+                container: container1,
+                todayHighlight: true,
+                autoclose: true,
+            });
+
+            var date_input2 = $('#inputFechaConstitucion'); //our date input has the name "date"
+            var container2 = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input2.datepicker({
+                format: 'dd/mm/yyyy',
+                container: container2,
+                todayHighlight: true,
+                autoclose: true,
+            });
+
+            var date_input3 = $('#inputFechaApertura'); //our date input has the name "date"
+            var container3 = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input3.datepicker({
+                format: 'dd/mm/yyyy',
+                container: container3,
+                todayHighlight: true,
+                autoclose: true,
+            });
+
+            var date_input4 = $('#inputFechaIngreso'); //our date input has the name "date"
+            var container4 = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input4.datepicker({
+                format: 'dd/mm/yyyy',
+                container: container4,
+                todayHighlight: true,
+                autoclose: true,
+            });
+
+            var date_input5 = $('#inputFechaCargo'); //our date input has the name "date"
+            var container5 = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input5.datepicker({
+                format: 'dd/mm/yyyy',
+                container: container5,
+                todayHighlight: true,
+                autoclose: true,
+            });
+        }
+
+        function mostrarTipoPersona() {
+            $('#inputTipoPersona').change();
+        }
+
+        function replaceItems(html) {
+            $('#direcciones').replaceWith($(html));
+            clearDireccionNueva();
+        }
+        function replaceRepresentantes(html) {
+            $('#representantes').replaceWith($(html));
+            clearRepresentanteNuevo();
+        }
+
+
+        function clearRepresentanteNuevo(){
+
+
+            $('input[name=parametroRepresentante]').val("addRepresentante");
+            $('input[name=indiceRepresentante]').val("");
+
+            $("input[name='representanteNuevo.nroDocumento']").val("");
+            $('#inputTipoDocumentoOtrosJuridico').prop('selectedIndex', 0);
+            $("input[name='representanteNuevo.apePaterno']").val("");
+            $("input[name='representanteNuevo.apeMaterno']").val("");
+            $('#inputCargoOtrosJuridico').prop('selectedIndex', 0);
+
+
+            $("input[name='representanteNuevo.nombres']").val("");
+            $("input[name='representanteNuevo.fechaCargo']").val("");
+            $("input[name='representanteNuevo.nomCargo']").val("");
+        }
+
+
+        function eliminarRepresentante(button) {
+
+            var data = $('form').serialize();
+            data = 'removeRepresentante=' + button.value + '&' + data;
+            console.log(data);
+            $.post('/clientes/form/ajax/representantes', data, replaceRepresentantes());
+        }
+
+        function editarRepresentante(button) {
+
+            $('input[name=parametroRepresentante]').val("editRepresentante");
+            $('input[name=indiceRepresentante]').val(button.value);
+
+            apePaterno = $(`input[name="representanteList[${button.value}].apePaterno"]`).val();
+            $("input[name='representanteNuevo.apePaterno']").val(apePaterno);
+            apeMaterno = $(`input[name="representanteList[${button.value}].apeMaterno"]`).val();
+            $("input[name='representanteNuevo.apeMaterno']").val(apeMaterno);
+            nombres = $(`input[name="representanteList[${button.value}].nombres"]`).val();
+            $("input[name='representanteNuevo.nombres']").val(nombres);
+
+            nroDocumento = $(`input[name="representanteList[${button.value}].nroDocumento"]`).val();
+            $("input[name='representanteNuevo.nroDocumento']").val(nroDocumento);
+
+            $('#inputTipoDocumentoOtrosJuridico').val($(`input[name="representanteList[${button.value}].tipoDocumento"]`).val());
+            $('#inputCargoOtrosJuridico').val($(`input[name="representanteList[${button.value}].cargo"]`).val());
+
+            fechaCargo = $(`input[name="representanteList[${button.value}].fechaCargo"]`).val();
+            $("input[name='representanteNuevo.fechaCargo']").val(fechaCargo);
+        }
+
+        function eliminarDireccion(button) {
+
+            var data = $('form').serialize();
+            data = 'removeDireccion=' + button.value + '&' + data;
+            console.log(data);
+            $.post('/clientes/form/ajax/direcciones', data, replaceItems);
+        }
+
+        function editarDireccion(button) {
+
+            $('input[name=parametro]').val("editDireccion");
+            $('input[name=indice]').val(button.value);
+
+            //pasar los datos a las cajas de texto y combobox
+            direccionData = $(`input[name="direccionList[${button.value}].direccion"]`).val();
+            $("input[name='direccionNueva.direccion']").val(direccionData);
+            nrodireccionData = $(`input[name="direccionList[${button.value}].nrodireccion"]`).val();
+            $("input[name='direccionNueva.nrodireccion']").val(nrodireccionData);
+            interiorDptoData = $(`input[name="direccionList[${button.value}].interiorDpto"]`).val();
+            $("input[name='direccionNueva.interiorDpto']").val(interiorDptoData);
+            mzDireccionData = $(`input[name="direccionList[${button.value}].mzDireccion"]`).val();
+            $("input[name='direccionNueva.mzDireccion']").val(mzDireccionData);
+            loteDreccionData = $(`input[name="direccionList[${button.value}].loteDreccion"]`).val();
+            $("input[name='direccionNueva.loteDreccion']").val(loteDreccionData);
+            lugarData = $(`input[name="direccionList[${button.value}].lugar"]`).val();
+            $("input[name='direccionNueva.lugar']").val(lugarData);
+
+            $('#inputTipoDireccion').val($(`input[name="direccionList[${button.value}].tipoDireccion"]`).val());
+            $('#inputTipoCalle').val($(`input[name="direccionList[${button.value}].tipoCalle"]`).val());
+            $('#inputTipoAgrupacion').val($(`input[name="direccionList[${button.value}].tipoAgrupacion"]`).val());
+            $("input[name='direccionNueva.nombreTipoDireccion']").val($(`input[name="direccionList[${button.value}].nombreTipoDireccion"]`).val());
+
+            $('#inputDepartamento').val($(`input[name="direccionList[${button.value}].codDpto"]`).val());
+
+            cambiarComboProvincia(button.value);
+
+        }
+
+        function cambiarComboProvincia(indice) {
+
+            selectedText = $("#inputDepartamento option:selected").html();
+            $("input[name='direccionNueva.departamento']").val(selectedText);
+
+            $("#inputProvincia").load('/clientes/form/ajax/provincias', $("#inputDepartamento").serialize(), function () {
+                $('#inputProvincia').val($(`input[name="direccionList[${indice}].codProvincia"]`).val());
+                $("#inputDistrito").empty();
+                cambiarComboDistrito(indice);
+            });
+
+
+        }
+
+        function cambiarComboDistrito(indice) {
+
+            selectedText = $("#inputProvincia option:selected").html();
+            $("input[name='direccionNueva.provincia']").val(selectedText);
+
+            $("#inputDistrito").load('/clientes/form/ajax/distritos', $("#inputProvincia").serialize(), function () {
+                $('#inputDistrito').val($(`input[name="direccionList[${indice}].codDistrito"]`).val());
+                selectedText = $("#inputDistrito option:selected").html();
+                $("input[name='direccionNueva.distrito']").val(selectedText);
+            });
+
+        }
+
+        function clearDireccionNueva() {
+
+            $('input[name=parametro]').val("addDireccion");
+            $('input[name=indice]').val("");
+
+            $("input[name='direccionNueva.nombreTipoDireccion']").val("");
+            $("input[name='direccionNueva.direccion']").val("");
+            $("input[name='direccionNueva.nrodireccion']").val("");
+            $("input[name='direccionNueva.interiorDpto']").val("");
+            $("input[name='direccionNueva.mzDireccion']").val("");
+            $("input[name='direccionNueva.loteDreccion']").val("");
+            $("input[name='direccionNueva.lugar']").val("");
+
+            $('#inputTipoDireccion').prop('selectedIndex', 0);
+            $('#inputTipoCalle').prop('selectedIndex', 0);
+            $('#inputTipoAgrupacion').prop('selectedIndex', 0);
+            $('#inputDepartamento').prop('selectedIndex', 0);
+
+            $("#inputProvincia").load('/clientes/form/ajax/provincias', $("#inputDepartamento").serialize());
+            $('#inputProvincia').prop('selectedIndex', 0);
+            $("#inputDistrito").load('/clientes/form/ajax/distritos', $("#inputProvincia").serialize());
+
+
+            $("input[name='direccionNueva.codDpto']").val($("#inputDepartamento option:selected").val());
+            $("input[name='direccionNueva.codProvincia']").val($("#inputProvincia option:selected").val());
+            $("input[name='direccionNueva.codDistrito']").val($("#inputDistrito option:selected").val());
+
+            $("input[name='direccionNueva.distrito']").val("");
+            $("input[name='direccionNueva.provincia']").val("");
+            $("input[name='direccionNueva.departamento']").val($("#inputDepartamento option:selected").val());
+
+
+        }
+
+    </script>
+    <title>Guardar Cliente</title>
+</head>
+<body>
+<div layout:fragment="breadcrumb">
+    <h1>Guardar Cliente</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Guardar Cliente</li>
+    </ol>
+</div>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <form role="form" th:object="${socio}" method="post">
+                <div class="box box-primary">
+                    <br/>
+
+                    <div id="exTab1">
+
+                        <ul class="nav nav-pills">
+                            <li class="active">
+                                <a href="#1a" data-toggle="tab">Datos Generales</a>
+                            </li>
+                            <li><a href="#2a" data-toggle="tab">Direcciones</a>
+                            </li>
+                            <li><a href="#3a" data-toggle="tab">Otros Datos</a>
+                            </li>
+                        </ul>
+
+                        <div class="box-body">
+                            <div class="tab-content">
+                                <input th:type="hidden" th:field="${socio.codSocio}"/>
+                                <div class="tab-pane active" id="1a">
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputTipoPersona">Tipo
+                                                Persona</label>
+                                            <select id="inputTipoPersona"
+                                                    class="form-control"
+                                                    th:field="${socio.tipoPersona}">
+                                                <option th:each="tipoPersona : ${allTiposPersona}"
+                                                        th:value="${tipoPersona.codigo}"
+                                                        th:text="${tipoPersona.descripcion}"/>
+                                            </select>
+                                            <input th:type="hidden" th:field="${socio.nomTipoPersona}"/>
+                                        </div>
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputCondicionLaboral">Condición
+                                                Laboral</label>
+                                            <select id="inputCondicionLaboral"
+                                                    class="form-control"
+                                                    th:field="${socio.condicionLaboral}">
+                                                <option th:each="condicionLaboral : ${allCondicionLaboral}"
+                                                        th:value="${condicionLaboral.codigo}"
+                                                        th:text="${condicionLaboral.descripcion}"/>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputTipoDocumento">Tipo
+                                                Documento</label>
+                                            <select id="inputTipoDocumento"
+                                                    class="form-control"
+                                                    th:field="${socio.tipoDocumento}">
+                                                <option th:each="tipoDocumento : ${allTiposDocumento}"
+                                                        th:value="${tipoDocumento.codigo}"
+                                                        th:text="${tipoDocumento.descripcion}"/>
+                                            </select>
+                                            <input th:type="hidden" th:field="${socio.nomTipoDocumento}"/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputActividadEconomica">Actividad
+                                                Economica</label>
+                                            <select id="inputActividadEconomica"
+                                                    class="form-control"
+                                                    th:field="${socio.ciiu}">
+                                                <option th:each="actividadEconomica : ${allActividadEconomica}"
+                                                        th:value="${actividadEconomica.codigo}"
+                                                        th:text="${actividadEconomica.descripcion}"/>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputNroDocumento">Nro.
+                                                Documento</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputNroDocumento"
+                                                   th:field="${socio.nroDocumento}"
+                                                   placeholder="Nro. Documento"
+                                                   maxlength="11">
+                                        </div>
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputProfesion">Profesión</label>
+                                            <select id="inputProfesion"
+                                                    class="form-control"
+                                                    th:field="${socio.profesion}">
+                                                <option th:each="profesion : ${allProfesiones}"
+                                                        th:value="${profesion.codigo}"
+                                                        th:text="${profesion.descripcion}"/>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputApePaterno">Ape.
+                                                Paterno</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputApePaterno"
+                                                   th:field="${socio.apePaterno}"
+                                                   maxlength="20">
+                                        </div>
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputCargaFamiliar">Carga
+                                                Familiar</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputCargaFamiliar"
+                                                   th:field="${socio.cargaFamiliar}"
+                                                   maxlength="10">&nbsp;<span id="errmsg"></span>
+                                        </div>
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputApeMaterno">Ape.
+                                                Materno</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputApeMaterno"
+                                                   th:field="${socio.apeMaterno}"
+                                                   maxlength="20">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="inputTelefonoFijo">Teléfono
+                                                Fijo</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputTelefonoFijo"
+                                                   th:field="${socio.telefonoFijo}"
+                                                   maxlength="10">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="inputCelular">Celular</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputCelular"
+                                                   th:field="${socio.telefonoCelular}"
+                                                   maxlength="10">
+                                        </div>
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputNombres">Nombres</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputNombres"
+                                                   th:field="${socio.nombres}"
+                                                   maxlength="20">
+                                        </div>
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_1">
+                                            <label for="inputRazonSocial">Razon
+                                                Social</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputRazonSocial"
+                                                   th:field="${socio.razonSocial}"
+                                                   maxlength="60">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputCorreoElectronico">Correo
+                                                Electrónico</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputCorreoElectronico"
+                                                   th:field="${socio.correoElectronico}"
+                                                   maxlength="40">
+                                        </div>
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_1">
+                                            <label for="inputFechaConstitucion">Fecha
+                                                Constitución</label>&nbsp;<i
+                                                class="fa fa-calendar">
+                                        </i>
+                                            <input class="form-control"
+                                                   id="inputFechaConstitucion"
+                                                   name="inputFechaConstitucion"
+                                                   placeholder="DD/MM/YYY" type="text"
+                                                   th:field="${socio.fechaConstitucion}"
+                                                   maxlength="10"/>
+                                        </div>
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputFechaNacimiento">Fecha
+                                                Nacimiento</label>&nbsp;<i
+                                                class="fa fa-calendar">
+                                        </i>
+                                            <input class="form-control"
+                                                   id="inputFechaNacimiento"
+                                                   name="inputFechaNacimiento"
+                                                   placeholder="DD/MM/YYY" type="text"
+                                                   th:field="${socio.fechaNacimiento}"
+                                                   maxlength="10"/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputFechaApertura">Fecha
+                                                Apertura</label>&nbsp;<i
+                                                class="fa fa-calendar">
+                                        </i>
+                                            <input class="form-control"
+                                                   id="inputFechaApertura"
+                                                   name="inputFechaApertura"
+                                                   placeholder="DD/MM/YYY" type="text"
+                                                   th:field="${socio.fechaApertura}"
+                                                   maxlength="10"/>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="inputNacionalidad">Nacionalidad</label>
+                                            <select id="inputNacionalidad"
+                                                    class="form-control"
+                                                    th:field="${socio.nacionalidad}">
+                                                <option th:each="nacionalidad : ${allNacionalidades}"
+                                                        th:value="${nacionalidad.codigo}"
+                                                        th:text="${nacionalidad.descripcion}"/>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputTipoVivienda">
+                                                Tipo Vivienda</label>
+                                            <select id="inputTipoVivienda"
+                                                    class="form-control"
+                                                    th:field="${socio.tipoVivienda}">
+                                                <option th:each="tipoVivienda : ${allTipoViviendas}"
+                                                        th:value="${tipoVivienda.codigo}"
+                                                        th:text="${tipoVivienda.descripcion}"/>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputSexo">Sexo</label>
+                                            <select id="inputSexo"
+                                                    class="form-control"
+                                                    th:field="${socio.sexo}">
+                                                <option th:each="sexo : ${allSexos}"
+                                                        th:value="${sexo.codigo}"
+                                                        th:text="${sexo.descripcion}"/>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputCalificacionInterna">Calificación
+                                                Interna</label>
+                                            <select id="inputCalificacionInterna"
+                                                    class="form-control"
+                                                    th:field="${socio.calInterna}">
+                                                <option th:each="calInterna : ${allCalificaciones}"
+                                                        th:value="${calInterna.codigo}"
+                                                        th:text="${calInterna.descripcion}"/>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputEstadoCivil">Estado
+                                                Civil</label>
+                                            <select id="inputEstadoCivil"
+                                                    class="form-control"
+                                                    th:field="${socio.estadoCivil}">
+                                                <option th:each="estadoCivil : ${allEstadosCiviles}"
+                                                        th:value="${estadoCivil.codigo}"
+                                                        th:text="${estadoCivil.descripcion}"/>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputCalificacionExterna">Calificación
+                                                Externa</label>
+                                            <select id="inputCalificacionExterna"
+                                                    class="form-control"
+                                                    th:field="${socio.calExterna}">
+                                                <option th:each="calExterna : ${allCalificaciones}"
+                                                        th:value="${calExterna.codigo}"
+                                                        th:text="${calExterna.descripcion}"/>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputEducacion">Educación</label>
+                                            <select id="inputEducacion"
+                                                    class="form-control"
+                                                    th:field="${socio.educacion}">
+                                                <option th:each="educacion : ${allNivelesEducacion}"
+                                                        th:value="${educacion.codigo}"
+                                                        th:utext="${educacion.descripcion}"/>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_1">
+                                            <label for="inputTipoEmpresa">Tipo
+                                                Empresa</label>
+                                            <select id="inputTipoEmpresa"
+                                                    class="form-control"
+                                                    th:field="${socio.tipoEmpresa}">
+                                                <option th:each="tipoEmpresa : ${allTiposEmpresas}"
+                                                        th:value="${tipoEmpresa.codigo}"
+                                                        th:text="${tipoEmpresa.descripcion}"/>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_1">
+                                            <label for="inputRRPP">RRPP</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputRRPP" th:field="${socio.rrpp}"
+                                                   maxlength="10">
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_1">
+                                            <label for="inputTamanho">Tamaño</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputTamanho"
+                                                   th:field="${socio.tamanoEmpresa}"
+                                                   maxlength="10">&nbsp;<span id="errTammsg"></span>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="tab-pane" id="2a">
+
+                                    <div class="form-row">
+
+                                        <div class="form-group col-md-6">
+
+                                            <label for="inputTipoDireccion">Tipo de
+                                                Dirección</label>
+                                            <select id="inputTipoDireccion"
+                                                    class="form-control"
+                                                    th:field="${socio.direccionNueva.tipoDireccion}">
+                                                <option th:each="tipoDireccion : ${allTipoDeDireccion}"
+                                                        th:value="${tipoDireccion.codigo}"
+                                                        th:text="${tipoDireccion.descripcion}"/>
+                                            </select>
+                                            <input th:type="hidden"
+                                                   th:field="${socio.direccionNueva.nombreTipoDireccion}"/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputTipoCalle">Tipo de
+                                                Calle</label>
+                                            <select id="inputTipoCalle"
+                                                    class="form-control"
+                                                    th:field="${socio.direccionNueva.tipoCalle}">
+                                                <option th:each="tipoCalle : ${allTipoDeCalle}"
+                                                        th:value="${tipoCalle.codigo}"
+                                                        th:text="${tipoCalle.descripcion}"/>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label for="inputDireccion">Dirección</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputDireccion"
+                                                   th:field="${socio.direccionNueva.direccion}"
+                                                   maxlength="50">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label for="inputNumero">Numero</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputNumero"
+                                                   th:field="${socio.direccionNueva.nrodireccion}"
+                                                   maxlength="10">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label for="inputInterior">Dpto./Interior</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputInterior"
+                                                   th:field="${socio.direccionNueva.interiorDpto}"
+                                                   maxlength="20">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label for="inputManzana">Mz.</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputManzana"
+                                                   th:field="${socio.direccionNueva.mzDireccion}"
+                                                   maxlength="10">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label for="inputLote">Lote</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputLote"
+                                                   th:field="${socio.direccionNueva.loteDreccion}"
+                                                   maxlength="10">
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="inputTipoAgrupacion">Tipo de
+                                                Agrupación</label>
+                                            <select id="inputTipoAgrupacion"
+                                                    class="form-control"
+                                                    th:field="${socio.direccionNueva.tipoAgrupacion}">
+                                                <option th:each="tipoAgrupacion : ${allTipoDeAgrupacion}"
+                                                        th:value="${tipoAgrupacion.codigo}"
+                                                        th:text="${tipoAgrupacion.descripcion}"/>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputLugar">Lugar</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputLugar"
+                                                   th:field="${socio.direccionNueva.lugar}"
+                                                   maxlength="20">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label for="inputDepartamento">Departamento</label>
+                                            <select id="inputDepartamento"
+                                                    class="form-control"
+                                                    th:field="${socio.direccionNueva.codDpto}">
+                                                <option th:each="departamento : ${allDepartamentos}"
+                                                        th:value="${departamento.codigo}"
+                                                        th:text="${departamento.descripcion}"/>
+                                            </select>
+                                            <input th:type="hidden"
+                                                   th:field="${socio.direccionNueva.departamento}"/>
+                                        </div>
+
+
+                                        <div class="form-group col-md-3">
+                                            <label for="inputProvincia">Provincia</label>
+                                            <select id="inputProvincia"
+                                                    class="form-control"
+                                                    th:field="${socio.direccionNueva.codProvincia}">
+
+                                                <option th:fragment="provincias"
+                                                        th:each="provincia : ${provincias}"
+                                                        th:value="${provincia.codigo}"
+                                                        th:text="${provincia.descripcion}"/>
+                                            </select>
+                                            <input th:type="hidden"
+                                                   th:field="${socio.direccionNueva.provincia}"/>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="inputDistrito">Distrito</label>
+                                            <select id="inputDistrito"
+                                                    class="form-control"
+                                                    th:field="${socio.direccionNueva.codDistrito}">
+
+                                                <option th:fragment="distritos"
+                                                        th:each="distrito : ${distritos}"
+                                                        th:value="${distrito.codigo}"
+                                                        th:text="${distrito.descripcion}"/>
+                                            </select>
+                                            <input th:type="hidden"
+                                                   th:field="${socio.direccionNueva.distrito}"/>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="form-row">
+
+                                        <div class="form-group col-md-3">
+                                            <label>&nbsp;</label>
+                                            <input type="hidden" name="parametro"
+                                                   value="addDireccion"/>
+                                            <input type="hidden" name="indice"/>
+                                            <button type="button" name="clearDireccion"
+                                                    onclick="clearDireccionNueva()">
+                                                Nuevo
+                                            </button>
+                                            <button type="button" name="addDireccion">
+                                                Guardar
+                                            </button>
+
+                                        </div>
+
+                                        <!-- grilla -->
+
+
+                                        <div class="form-group table-responsive col-md-12">
+                                            <fieldset id="direcciones">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Tipo Dirección</th>
+                                                        <th>Dirección</th>
+                                                        <th>Distrito</th>
+                                                        <th>Provincia</th>
+                                                        <th>Departamento</th>
+                                                        <th>&nbsp;</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="st,iter : ${socio.direccionList}">
+
+                                                        <td th:text="${st.nombreTipoDireccion}"></td>
+                                                        <td th:text="${st.direccion}"></td>
+                                                        <td th:text="${st.distrito}"></td>
+                                                        <td th:text="${st.provincia}"></td>
+                                                        <td th:text="${st.departamento}"></td>
+                                                        <td>
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].codDireccion}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].tipoDireccion}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].nombreTipoDireccion}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].tipoCalle}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].direccion}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].nrodireccion}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].interiorDpto}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].mzDireccion}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].loteDreccion}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].tipoAgrupacion}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].lugar}">
+
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].distrito}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].provincia}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].departamento}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].codDpto}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].codProvincia}">
+                                                            <input th:type="hidden"
+                                                                   th:field="${socio.direccionList[__${iter.index}__].codDistrito}">
+                                                            <button type="button"
+                                                                    name="editDireccion"
+                                                                    th:value="${iter.index}"
+                                                                    onclick="editarDireccion(this)">
+                                                                Editar
+                                                            </button>
+                                                            <button type="button"
+                                                                    name="removeDireccion"
+                                                                    th:value="${iter.index}"
+                                                                    onclick="eliminarDireccion(this)">
+                                                                Eliminar
+                                                            </button>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr th:if="${#lists.isEmpty(socio.direccionList)}">
+                                                        <td colspan="13"
+                                                            class="text-center">No hay
+                                                            direcciones registradas
+                                                        </td>
+                                                    </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </fieldset>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane" id="3a">
+
+                                    <div class="form-row">
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label>CENTRO
+                                                LABORAL</label>
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label>DATOS DEL
+                                                CONYUGE</label>
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputRUC">RUC</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputRUC"
+                                                   th:field="${socio.rucLaboral}"
+                                                   maxlength="11">
+                                        </div>
+
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+
+                                            <input type="hidden" name="parametroRepresentante"
+                                                   value="addRepresentante"/>
+                                            <input type="hidden" name="indiceRepresentante"/>
+                                            <label for="inputTipoDocumentoOtros">Tipo de
+                                                Documento</label>
+                                            <select id="inputTipoDocumentoOtros"
+                                                    class="form-control"
+                                                    th:field="${socio.tipDocConyuge}">
+                                                <option th:each="tipoDocumento : ${allTiposDocumento}"
+                                                        th:value="${tipoDocumento.codigo}"
+                                                        th:text="${tipoDocumento.descripcion}"/>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputCentroLaboral">Centro
+                                                Laboral</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputCentroLaboral"
+                                                   th:field="${socio.centroLaboral}"
+                                                   maxlength="50">
+                                        </div>
+
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputNroDocumentoOtros">Nro. de
+                                                Documento</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputNroDocumentoOtros"
+                                                   th:field="${socio.docConyuge}"
+                                                   placeholder="Nro. Documento"
+                                                   maxlength="10">
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputCargo">Cargo</label>
+                                            <select id="inputCargo"
+                                                    class="form-control"
+                                                    th:field="${socio.cargo}">
+                                                <option th:each="cargo : ${allCargos}"
+                                                        th:value="${cargo.codigo}"
+                                                        th:text="${cargo.descripcion}"/>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputApePaternoOtros">Ape.
+                                                Paterno</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputApePaternoOtros"
+                                                   th:field="${socio.apePatConyuge}"
+                                                   maxlength="20">
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputFechaIngreso">Fecha
+                                                Ingreso</label>&nbsp;<i
+                                                class="fa fa-calendar">
+                                        </i>
+                                            <input class="form-control"
+                                                   id="inputFechaIngreso"
+                                                   name="inputFechaIngreso"
+                                                   placeholder="DD/MM/YYY" type="text"
+                                                   th:field="${socio.fechaIngreso}"
+                                                   maxlength="10"/>
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputApeMaternoOtros">Ape.
+                                                Materno</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputApeMaternoOtros"
+                                                   th:field="${socio.apeMatConyuge}"
+                                                   maxlength="20">
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputTelefonoLaboral">Teléfono
+                                                Laboral</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputTelefonoLaboral"
+                                                   th:field="${socio.telefonoLaboral}"
+                                                   maxlength="10">
+                                        </div>
+
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_2">
+                                            <label for="inputNombresOtros">Nombres</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputNombresOtros"
+                                                   th:field="${socio.nomConyuge}"
+                                                   maxlength="20">
+                                        </div>
+
+
+                                        <div class="form-group col-md-12 inputTipoPersona_hide inputTipoPersona_1">
+                                            <label>REPRESENTANTES
+                                                LEGALES</label>
+                                        </div>
+
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_1">
+                                            <label for="inputApePaternoOtrosJuridico">Ape.
+                                                Paterno</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputApePaternoOtrosJuridico"
+                                                   th:field="${socio.representanteNuevo.apePaterno}"
+                                                   maxlength="20">
+                                        </div>
+
+                                        <div class="form-group col-md-3 inputTipoPersona_hide inputTipoPersona_1">
+                                            <label for="inputTipoDocumentoOtrosJuridico">Tipo
+                                                de Documento</label>
+                                            <select id="inputTipoDocumentoOtrosJuridico"
+                                                    class="form-control"
+                                                    th:field="${socio.representanteNuevo.tipoDocumento}">
+                                                <option th:each="tipoDocumento : ${allTiposDocumento}"
+                                                        th:value="${tipoDocumento.codigo}"
+                                                        th:text="${tipoDocumento.descripcion}"/>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-3 inputTipoPersona_hide inputTipoPersona_1">
+                                            <label for="inputNroDocumentoOtrosJuridico">Nro.
+                                                de Documento</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputNroDocumentoOtrosJuridico"
+                                                   th:field="${socio.representanteNuevo.nroDocumento}"
+                                                   maxlength="10">
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_1">
+                                            <label for="inputApeMaternoOtrosJuridico">Ape.
+                                                Materno</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputApeMaternoOtrosJuridico"
+                                                   th:field="${socio.representanteNuevo.apeMaterno}"
+                                                   maxlength="20">
+                                        </div>
+
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_1">
+                                            <label for="inputCargoOtrosJuridico">Cargo</label>
+                                            <select id="inputCargoOtrosJuridico"
+                                                    class="form-control"
+                                                    th:field="${socio.representanteNuevo.cargo}">
+                                                <option th:each="cargo : ${allCargos}"
+                                                        th:value="${cargo.codigo}"
+                                                        th:text="${cargo.descripcion}"/>
+                                            </select>
+
+
+                                            <input th:type="hidden"
+                                                   th:field="${socio.representanteNuevo.nomCargo}"/>
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_1">
+                                            <label for="inputNombresOtrosJuridico">Nombres</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputNombresOtrosJuridico"
+                                                   th:field="${socio.representanteNuevo.nombres}"
+                                                   maxlength="20">
+                                        </div>
+
+                                        <div class="form-group col-md-6 inputTipoPersona_hide inputTipoPersona_1">
+                                            <label for="inputFechaCargo">Fecha
+                                                Cargo</label>&nbsp;<i
+                                                class="fa fa-calendar">
+                                        </i>
+                                            <input class="form-control"
+                                                   id="inputFechaCargo"
+                                                   name="inputFechaCargo"
+                                                   placeholder="DD/MM/YYY" type="text"
+                                                   th:field="${socio.representanteNuevo.fechaCargo}"/>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-row inputTipoPersona_hide inputTipoPersona_1">
+
+                                            <div class="form-group col-md-3">
+                                                <label>&nbsp;</label>
+                                                <button type="button"
+                                                        name="clearRepresentante"
+                                                        onclick="clearRepresentanteNuevo()">
+                                                    Nuevo
+                                                </button>
+                                                <button type="button"
+                                                        name="addRepresentante">
+                                                    Guardar
+                                                </button>
+
+                                            </div>
+
+                                            <!-- grilla -->
+
+                                            <div class="form-group table-responsive col-md-12">
+                                                <fieldset id="representantes">
+                                                    <table class="table table-bordered table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Nro. Documento</th>
+                                                            <th>Nombres</th>
+                                                            <th>Cargo</th>
+                                                            <th>&nbsp;</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr th:each="st,iter : ${socio.representanteList}">
+                                                            <td th:text="${st.nroDocumento}"></td>
+                                                            <td><span th:text = "${st.apePaterno}"/> <span th:text = "${st.apeMaterno}"/>, <span th:text = "${st.nombres}"/> </td>
+                                                            <td th:text="${st.nomCargo}"></td>
+                                                            <td>
+                                                                <input th:type="hidden"
+                                                                       th:field="${socio.representanteList[__${iter.index}__].codRepresentante}">
+                                                                <input th:type="hidden"
+                                                                       th:field="${socio.representanteList[__${iter.index}__].nroDocumento}">
+                                                                <input th:type="hidden"
+                                                                       th:field="${socio.representanteList[__${iter.index}__].tipoDocumento}">
+                                                                <input th:type="hidden"
+                                                                       th:field="${socio.representanteList[__${iter.index}__].apePaterno}">
+                                                                <input th:type="hidden"
+                                                                       th:field="${socio.representanteList[__${iter.index}__].apeMaterno}">
+                                                                <input th:type="hidden"
+                                                                       th:field="${socio.representanteList[__${iter.index}__].nombres}">
+                                                                <input th:type="hidden"
+                                                                       th:field="${socio.representanteList[__${iter.index}__].cargo}">
+                                                                <input th:type="hidden"
+                                                                       th:field="${socio.representanteList[__${iter.index}__].nomCargo}">
+                                                                <input th:type="hidden"
+                                                                       th:field="${socio.representanteList[__${iter.index}__].fechaCargo}">
+                                                                <button type="button"
+                                                                        name="editRepresentante"
+                                                                        th:value="${iter.index}"
+                                                                        onclick="editarRepresentante(this)">
+                                                                    Editar
+                                                                </button>
+                                                                <button type="button"
+                                                                        name="removeRepresentante"
+                                                                        th:value="${iter.index}"
+                                                                        onclick="eliminarRepresentante(this)">
+                                                                    Eliminar
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr th:if="${#lists.isEmpty(socio.representanteList)}">
+                                                            <td colspan="6"
+                                                                class="text-center">No
+                                                                hay representantes
+                                                                registrados
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </fieldset>
+                                            </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="box-footer with-border">
+                        <a th:href="@{/clientes/list}" class="btn btn-default" role="button"
+                           title="Back list">
+                            <span aria-hidden="true"></span>Cancelar
+                        </a>
+                        <button type="submit" class="box-title btn btn-primary"
+                                title="Save Data">Guardar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
