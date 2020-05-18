@@ -63,7 +63,7 @@ public class Urbanizacion implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Urbanizacion[ codigo=" + codigo + " ]";
+		return "pe.com.siacoopapp.entity.Urbanizacion[ codigo=" + codigo + " ]";
 	}
 
 }

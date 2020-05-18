@@ -63,7 +63,7 @@ public class Calificacion implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Calificacion[ codigo=" + codigo + " ]";
+		return "pe.com.siacoopapp.entity.Calificacion[ codigo=" + codigo + " ]";
 	}
 
 }

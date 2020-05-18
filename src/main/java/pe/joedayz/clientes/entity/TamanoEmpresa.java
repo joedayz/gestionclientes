@@ -64,7 +64,7 @@ public class TamanoEmpresa implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TamanoEmpresa[ codigo=" + codigo + " ]";
+		return "pe.com.siacoopapp.entity.TamanoEmpresa[ codigo=" + codigo + " ]";
 	}
 
 }

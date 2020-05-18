@@ -63,7 +63,7 @@ public class Cargo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Cargo[ codigo=" + codigo + " ]";
+		return "pe.com.siacoopapp.entity.Cargo[ codigo=" + codigo + " ]";
 	}
 
 }

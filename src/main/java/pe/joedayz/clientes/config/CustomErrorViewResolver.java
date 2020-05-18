@@ -17,7 +17,7 @@ import java.util.Map;
  * @since : 12/03/20
  */
 @Configuration
-public class CustomErrorVewResolver implements ErrorViewResolver {
+public class CustomErrorViewResolver implements ErrorViewResolver {
 
     @Override
     public ModelAndView resolveErrorView(HttpServletRequest request, HttpStatus status,

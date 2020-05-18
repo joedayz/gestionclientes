@@ -97,7 +97,7 @@ public class Ubigeo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Ubigeo[ codigo=" + codigo + " ]";
+		return "pe.com.siacoopapp.entity.Ubigeo[ codigo=" + codigo + " ]";
 	}
 
 }

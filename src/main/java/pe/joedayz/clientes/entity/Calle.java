@@ -63,7 +63,7 @@ public class Calle implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Calle[ codigo=" + codigo + " ]";
+		return "pe.com.siacoopapp.entity.Calle[ codigo=" + codigo + " ]";
 	}
 
 }

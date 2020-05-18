@@ -2,27 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layout}">
 <head>
-    <title>Error en Gestión de Clientes</title>
+    <title th:text="#{Error.Title}"></title>
 </head>
 <body>
 <div layout:fragment="breadcrumb">
-    <h1>Sucedió un
-        <small> ERROR</small>
-    </h1>
+    <h1 th:text="#{Error.SubTitle}"></h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Se ha presentado un problema</li>
+        <li><a href="/"><i class="fa fa-dashboard"></i> <span th:text="#{Home.Title}"/></a></li>
+        <li class="active" th:text="#{Error.Message}"></li>
     </ol>
 </div>
 <div layout:fragment="content">
     <div class="error-page">
         <h2 class="headline text-yellow" th:text="${status}"></h2>
         <div class="error-content">
-            <h3><i class="fa fa-warning text-yellow"></i>Página no encontrada.</h3>
+            <h3><i class="fa fa-warning text-yellow"></i> <span th:text="#{Error.No.Preocupes}"/></h3>
             <p th:text="${message}"></p>
-            <p>
-                No pudimos ubicar la pagina que estas buscando.
-                Sin embargo, puedes <a href="/">retornar al menú principal</a>.
+            <p th:text="#{Error.Body}">
+
             </p>
         </div>
     </div>

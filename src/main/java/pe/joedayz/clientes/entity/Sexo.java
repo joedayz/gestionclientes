@@ -63,7 +63,7 @@ public class Sexo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Sexo[ codigo=" + codigo + " ]";
+		return "pe.com.siacoopapp.entity.Sexo[ codigo=" + codigo + " ]";
 	}
 
 }

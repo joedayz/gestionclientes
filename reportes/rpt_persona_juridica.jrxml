@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_persona_natural" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="74dad5b7-a85e-4d98-bf72-1893e72e6018">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL Adapter"/>
+	<parameter name="codSocio" class="java.lang.Integer">
+		<parameterDescription><![CDATA[codigo de socio]]></parameterDescription>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select s.Cod_Socio,s.Tipo_Documento,s.Nro_Documento,s.Razon_Social,d.Dirección,d.Distrito,d.Provincia,d.Departamento,
+	   s.Nacionalidad,s.Tamano_Empresa,s.Telefono_Fijo,s.Correo_Electronico,s.Fecha_Ingreso,te.Descripcion tipoEmpresa,s.RRPP,s.Fecha_Constitucion
+from clientesdb.clientes s, clientesdb.direcciones d, clientesdb.nivel_educacion ne, clientesdb.tipos_empresa te
+where s.Cod_Socio=d.Cod_Socio
+and s.Educacion=ne.Codigo
+and s.Tipo_Empresa=te.Codigo
+and d.Tipo_Direccion='G'
+and s.Cod_Socio=$P{codSocio}]]>
+	</queryString>
+	<field name="Cod_Socio" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Cod_Socio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm001_socios"/>
+	</field>
+	<field name="Tipo_Documento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Tipo_Documento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm001_socios"/>
+	</field>
+	<field name="Nro_Documento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nro_Documento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm001_socios"/>
+	</field>
+	<field name="Razon_Social" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Razon_Social"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm001_socios"/>
+	</field>
+	<field name="Dirección" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Dirección"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm002_direcciones"/>
+	</field>
+	<field name="Distrito" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Distrito"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm002_direcciones"/>
+	</field>
+	<field name="Provincia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Provincia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm002_direcciones"/>
+	</field>
+	<field name="Departamento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Departamento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm002_direcciones"/>
+	</field>
+	<field name="Nacionalidad" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nacionalidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm001_socios"/>
+	</field>
+	<field name="Tamano_Empresa" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Tamano_Empresa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm001_socios"/>
+	</field>
+	<field name="Telefono_Fijo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Telefono_Fijo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm001_socios"/>
+	</field>
+	<field name="Correo_Electronico" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Correo_Electronico"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm001_socios"/>
+	</field>
+	<field name="Fecha_Ingreso" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Fecha_Ingreso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm001_socios"/>
+	</field>
+	<field name="tipoEmpresa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="tipoEmpresa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tc020_tipos_empresa"/>
+	</field>
+	<field name="RRPP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RRPP"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm001_socios"/>
+	</field>
+	<field name="Fecha_Constitucion" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Fecha_Constitucion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tm001_socios"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="549" height="30" forecolor="#C9C9C9" uuid="586cee4b-2c1c-4530-8c60-ce9fef955804"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTO ESPECIFICACIÓN FUNCIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="549" height="30" forecolor="#C9C9C9" uuid="4f099547-fb55-451d-a169-7d44df915acf"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APLICACIÓN: GESTIÓN DE CLIENTES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="80" y="2" width="400" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="06e80bdd-69a8-4808-94df-d9a88e840788"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Cliente (Persona Jurídica)]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="680" splitType="Stretch">
+			<frame>
+				<reportElement x="15" y="10" width="519" height="661" uuid="cdbef47d-ac60-4a21-8385-8db80145e78a"/>
+				<staticText>
+					<reportElement x="20" y="40" width="130" height="19" uuid="f932576d-b00a-4487-9736-27b77a8e5cb4"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[CÓDIGO DE CLIENTE:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="135" width="130" height="19" uuid="55a2b6d3-258e-4e4e-9fc1-267fe5eaef6b"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[DISTRITO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="154" width="130" height="19" uuid="f28a2620-12ab-47b4-a094-3b261fc51a5d"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isItalic="false"/>
+					</textElement>
+					<text><![CDATA[PROVINCIA:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="116" width="130" height="19" uuid="972c44a8-2194-45a0-af16-7c2e554515d2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[DIRECCIÓN:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="97" width="130" height="19" uuid="29e45d18-c7ae-444f-927f-e2ffa42f2087"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[RAZON SOCIAL:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="78" width="130" height="19" uuid="c779722f-c09f-41db-8c25-a38800eec1d0"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[NRO. DOCUMENTO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="59" width="130" height="19" uuid="84b9a0c8-56ff-4868-a09b-3333400df467"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[TIPO DE DOCUMENTO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="20" y="10" width="480" height="20" backcolor="#05ACFF" uuid="7453a416-7034-468e-a496-195923139527"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[FICHA DE CLIENTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="173" width="130" height="19" uuid="867d4431-2edf-4256-8538-e09da08f344e"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isItalic="false"/>
+					</textElement>
+					<text><![CDATA[DEPARTAMENTO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="192" width="130" height="19" uuid="98df0c73-dbd2-45f5-aeff-1da8c3a9c2d2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isItalic="false"/>
+					</textElement>
+					<text><![CDATA[NACIONALIDAD:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="211" width="130" height="19" uuid="c8ebb84a-a4b8-4692-92d1-2c492adbde87"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isItalic="false"/>
+					</textElement>
+					<text><![CDATA[TAMAÑO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="230" width="130" height="19" uuid="d2bb2dae-262d-4f39-9f9b-4e2ab4f41e83"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isItalic="false"/>
+					</textElement>
+					<text><![CDATA[TELÉFONO FIJO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="249" width="130" height="19" uuid="ebbb7351-8607-486b-9976-aca1000ed2b1"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isItalic="false"/>
+					</textElement>
+					<text><![CDATA[CORREO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="300" y="40" width="130" height="19" uuid="c89908ab-3e7d-4db9-8910-e9a8e1310dca"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[FECHA DE INSCRIPCIÓN:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="360" y="370" width="129" height="20" uuid="b837f5b3-d481-4b99-acd4-2761bbfc512b"/>
+					<box>
+						<pen lineStyle="Solid" lineColor="#000000"/>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[EMPRESA]]></text>
+				</staticText>
+				<frame>
+					<reportElement x="230" y="290" width="90" height="100" uuid="fc3b1e87-bd51-4865-8259-8dd18e30fa11"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</frame>
+				<staticText>
+					<reportElement x="230" y="370" width="90" height="19" uuid="fac5c4d3-2f75-487a-99d0-c836a119ec61"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Huella Digital]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="50" y="389" width="29" height="21" uuid="347a7c31-4a6b-4481-9923-01308a8ca073"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[RUC:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="450" width="469" height="210" uuid="c3553a21-96c8-441b-b400-819379062524"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font isItalic="false"/>
+					</textElement>
+					<text><![CDATA[1. En cumplimiento a la ley N° 29733 sobre la Protección de Datos Personales y el Decreto Supremo N° 003-2013-JUS; Monte Sur Club informa que los datos personales proporcionados, por su persona, quedan incorporados al banco de datos de socios del club.
+2. El titular de los datos personales tiene conocimiento que el Club utilizará sus datos personales y sus datos sensibles, que hubieran sido proporcionados directamente al Club; aquellos que además pudieran encontrarse en fuentes accesibles para el público o que hayan sido obtenidos de terceros.
+3. Se le informa tambipen que puede revocar la autorización para el tratamiento de sus datos personales en cualquier momento, en conformidad con lo previsto en la Ley de Protección de Datos Personales N° 29733 y su Reglamento, Decreto Supremo N° 003-2013-JUS.
+Para ejercer este derecho o cualquier otro previsto en dichas normas; el titular de datos personales podrá ponerse en contacto con nosotros a través de la siguiente dirección de correo electrónico: informes@montesur.com.pe o al teléfono 01 6069966.
+4. Por lo tanto a lo leído:
+¿Presta usted el consetimiento para que el responsable de la base de datos del Club Monte Sur, continué con el tratamiento de los mismos, de acuerdo a lo establecido en el presente documento?
+SI:___ NO:___]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="20" y="430" width="469" height="20" backcolor="#05ACFF" uuid="47f9937f-fc1d-4ae5-9a36-50e75cdd0864"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CONSENTIMIENTO DE USO DE DATOS PERSONALES]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="150" y="40" width="150" height="19" uuid="3894c312-af83-4d12-b4a0-e799c5893c93"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Cod_Socio}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="150" y="60" width="150" height="19" uuid="26105e55-1905-4539-acf7-8afefe5506ae"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Tipo_Documento}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="150" y="80" width="150" height="19" uuid="bb93bdd4-ce52-47c4-a656-6513c11b4f61"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Nro_Documento}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="150" y="97" width="150" height="19" uuid="4c5a9601-ba87-4a4f-9e4a-780cb2be27b1"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Razon_Social}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="150" y="116" width="280" height="19" uuid="95bc8d66-ace2-47df-95ea-445fa5191b72"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Dirección}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="150" y="135" width="150" height="19" uuid="4e0e668f-2a47-4e80-9105-57772caf8526"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Distrito}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="150" y="154" width="150" height="19" uuid="293b4a34-93da-4574-a70e-abce2ff742e3"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Provincia}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="150" y="173" width="150" height="19" uuid="fe90f153-e7b2-4e9f-ab20-cb2c7cc45101"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Departamento}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="150" y="192" width="150" height="19" uuid="d1ad163d-e166-42d1-9766-c3ef1dfbd0dd"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Nacionalidad}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="150" y="210" width="150" height="19" uuid="6f153b3a-a7e0-4143-9fbf-4024fb4ed3d8"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Tamano_Empresa}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="150" y="230" width="150" height="19" uuid="edd45528-1177-4bc4-b106-560a320bf257"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Telefono_Fijo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="150" y="250" width="150" height="19" uuid="317ac683-02b7-4162-8760-94fb9edc1e7b"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Correo_Electronico}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="30" y="370" width="150" height="19" uuid="6b0decb6-8db5-4d4f-a30c-a9562f74c449"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Razon_Social}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="430" y="40" width="69" height="19" uuid="d0c4160c-f363-4d11-a67d-19a9bf8a2fac"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Fecha_Ingreso}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="300" y="154" width="130" height="19" uuid="8962aa8a-76e4-468c-941d-bdd37e00a4a4"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isItalic="false"/>
+					</textElement>
+					<text><![CDATA[TIPO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="300" y="173" width="130" height="19" uuid="b5af33ab-292b-4ed6-8755-3d844de19941"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isItalic="false"/>
+					</textElement>
+					<text><![CDATA[R.R.P.P:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="300" y="191" width="130" height="19" uuid="bdd624a0-17f0-4c66-992b-834b118e4e82"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isItalic="false"/>
+					</textElement>
+					<text><![CDATA[FECHA CREACION:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="430" y="154" width="69" height="19" uuid="9736f0a8-836d-47ff-bb5f-5476f18d3d4c"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipoEmpresa}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="431" y="173" width="68" height="19" uuid="33a55f78-017f-439b-9688-435254613416"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{RRPP}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="430" y="192" width="69" height="19" uuid="52f12125-7415-4579-a900-04686f37bcf9"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Fecha_Constitucion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="80" y="390" width="90" height="19" uuid="bb92b3c8-39cc-44d3-af75-5a24b05af01b"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Nro_Documento}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

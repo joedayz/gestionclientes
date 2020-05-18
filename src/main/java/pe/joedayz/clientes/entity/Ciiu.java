@@ -63,7 +63,7 @@ public class Ciiu implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Ciiu[ codigo=" + codigo + " ]";
+		return "pe.com.siacoopapp.entity.Ciiu[ codigo=" + codigo + " ]";
 	}
 
 }

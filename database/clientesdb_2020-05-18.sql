@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.28)
 # Database: clientesdb
-# Generation Time: 2020-03-29 22:18:57 +0000
+# Generation Time: 2020-05-18 06:44:45 +0000
 # ************************************************************
 
 
@@ -20,21 +20,21 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table calificacion
+# Dump of table Calificacion
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `calificacion`;
+DROP TABLE IF EXISTS `Calificacion`;
 
-CREATE TABLE `calificacion` (
-  `codigo` varchar(255) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `Calificacion` (
+  `Codigo` varchar(3) NOT NULL,
+  `Descripcion` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `calificacion` WRITE;
-/*!40000 ALTER TABLE `calificacion` DISABLE KEYS */;
+LOCK TABLES `Calificacion` WRITE;
+/*!40000 ALTER TABLE `Calificacion` DISABLE KEYS */;
 
-INSERT INTO `calificacion` (`codigo`, `descripcion`)
+INSERT INTO `Calificacion` (`Codigo`, `Descripcion`)
 VALUES
 	('CPP','CON PROBLEMAS DE PAGO'),
 	('DEF','DEFICIENTE'),
@@ -42,25 +42,25 @@ VALUES
 	('NOR','NORMAL'),
 	('PER','PERDIDA');
 
-/*!40000 ALTER TABLE `calificacion` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Calificacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table calles
+# Dump of table Calles
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `calles`;
+DROP TABLE IF EXISTS `Calles`;
 
-CREATE TABLE `calles` (
-  `codigo` varchar(255) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `Calles` (
+  `Codigo` varchar(2) NOT NULL,
+  `Descripcion` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `calles` WRITE;
-/*!40000 ALTER TABLE `calles` DISABLE KEYS */;
+LOCK TABLES `Calles` WRITE;
+/*!40000 ALTER TABLE `Calles` DISABLE KEYS */;
 
-INSERT INTO `calles` (`codigo`, `descripcion`)
+INSERT INTO `Calles` (`Codigo`, `Descripcion`)
 VALUES
 	('AL','ALAMEDA'),
 	('AV','AVENIDA'),
@@ -84,25 +84,25 @@ VALUES
 	('PS','PASAJE'),
 	('PU','PUENTE');
 
-/*!40000 ALTER TABLE `calles` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Calles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table cargos
+# Dump of table Cargos
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `cargos`;
+DROP TABLE IF EXISTS `Cargos`;
 
-CREATE TABLE `cargos` (
-  `codigo` smallint(6) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `Cargos` (
+  `Codigo` decimal(3,0) NOT NULL,
+  `Descripcion` varchar(70) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `cargos` WRITE;
-/*!40000 ALTER TABLE `cargos` DISABLE KEYS */;
+LOCK TABLES `Cargos` WRITE;
+/*!40000 ALTER TABLE `Cargos` DISABLE KEYS */;
 
-INSERT INTO `cargos` (`codigo`, `descripcion`)
+INSERT INTO `Cargos` (`Codigo`, `Descripcion`)
 VALUES
 	(1,'ALCALDE'),
 	(2,'ANALISTA'),
@@ -141,25 +141,25 @@ VALUES
 	(35,'OTROS (señalar)'),
 	(36,'NO DECLARA');
 
-/*!40000 ALTER TABLE `cargos` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Cargos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table ciiu
+# Dump of table CIIU
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ciiu`;
+DROP TABLE IF EXISTS `CIIU`;
 
-CREATE TABLE `ciiu` (
-  `codigo` varchar(255) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `CIIU` (
+  `Codigo` varchar(4) NOT NULL,
+  `Descripcion` varchar(220) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `ciiu` WRITE;
-/*!40000 ALTER TABLE `ciiu` DISABLE KEYS */;
+LOCK TABLES `CIIU` WRITE;
+/*!40000 ALTER TABLE `CIIU` DISABLE KEYS */;
 
-INSERT INTO `ciiu` (`codigo`, `descripcion`)
+INSERT INTO `CIIU` (`Codigo`, `Descripcion`)
 VALUES
 	('1010','Extracción y aglomeración de carbon de piedra'),
 	('1020','Extracción y aglomeración de lignito'),
@@ -457,7 +457,81 @@ VALUES
 	('9900','Organizaciones y órganos extraterritoriales'),
 	('9999','Otras actividades no especificadas');
 
-/*!40000 ALTER TABLE `ciiu` ENABLE KEYS */;
+/*!40000 ALTER TABLE `CIIU` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table Clientes
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Clientes`;
+
+CREATE TABLE `Clientes` (
+  `Cod_Socio` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Tipo_Persona` varchar(1) DEFAULT NULL,
+  `Tipo_Documento` varchar(3) DEFAULT NULL,
+  `Nro_Documento` varchar(11) DEFAULT NULL,
+  `Ape_Paterno` varchar(20) DEFAULT NULL,
+  `Ape_Materno` varchar(20) DEFAULT NULL,
+  `Nombres` varchar(20) DEFAULT NULL,
+  `Nom_Completo` varchar(60) DEFAULT NULL,
+  `Fecha_Nacimiento` date DEFAULT NULL,
+  `Nacionalidad` varchar(4) DEFAULT NULL,
+  `Sexo` varchar(1) DEFAULT NULL,
+  `Estado_Civil` varchar(2) DEFAULT NULL,
+  `Educacion` varchar(3) DEFAULT NULL,
+  `Condicion_Laboral` varchar(4) DEFAULT NULL,
+  `CIIU` varchar(4) DEFAULT NULL,
+  `Profesion` varchar(3) DEFAULT NULL,
+  `Tip_Doc_Conyuge` varchar(3) DEFAULT NULL,
+  `Doc_Conyuge` varchar(10) DEFAULT NULL,
+  `Ape_Pat_Conyuge` varchar(20) DEFAULT NULL,
+  `Ape_Mat_Conyuge` varchar(20) DEFAULT NULL,
+  `Nom_Conyuge` varchar(20) DEFAULT NULL,
+  `Telefono_Fijo` varchar(10) DEFAULT NULL,
+  `Telefono_Celular` varchar(10) DEFAULT NULL,
+  `Correo_Electronico` varchar(40) DEFAULT NULL,
+  `Fecha_Apertura` date DEFAULT NULL,
+  `Carga_Familiar` int(2) unsigned DEFAULT NULL,
+  `Tipo_Vivienda` varchar(1) DEFAULT NULL,
+  `Ruc_Laboral` varchar(11) DEFAULT NULL,
+  `Centro_Laboral` varchar(50) DEFAULT NULL,
+  `Cargo` varchar(3) DEFAULT NULL,
+  `Fecha_Ingreso` date DEFAULT NULL,
+  `Telefono_Laboral` varchar(10) DEFAULT NULL,
+  `Razon_Social` varchar(60) DEFAULT NULL,
+  `Fecha_Constitucion` date DEFAULT NULL,
+  `Tipo_Empresa` varchar(1) DEFAULT NULL,
+  `RRPP` varchar(10) DEFAULT NULL,
+  `Tamano_Empresa` int(10) unsigned zerofill DEFAULT NULL,
+  `Cal_Interna` varchar(3) DEFAULT NULL,
+  `Cal_Externa` varchar(3) DEFAULT NULL,
+  `Activo` int(10) unsigned DEFAULT '1',
+  `Usuario_Registro` varchar(10) DEFAULT NULL,
+  `Fecha_Registro` date DEFAULT NULL,
+  `Hora_Registro` time DEFAULT NULL,
+  `Usuario_Modifica` varchar(10) DEFAULT NULL,
+  `Fecha_Modifica` date DEFAULT NULL,
+  `Hora_Modifica` time DEFAULT NULL,
+  `Nom_Tipo_Persona` varchar(10) DEFAULT NULL,
+  `Nom_Tipo_Documento` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`Cod_Socio`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `Clientes` WRITE;
+/*!40000 ALTER TABLE `Clientes` DISABLE KEYS */;
+
+INSERT INTO `Clientes` (`Cod_Socio`, `Tipo_Persona`, `Tipo_Documento`, `Nro_Documento`, `Ape_Paterno`, `Ape_Materno`, `Nombres`, `Nom_Completo`, `Fecha_Nacimiento`, `Nacionalidad`, `Sexo`, `Estado_Civil`, `Educacion`, `Condicion_Laboral`, `CIIU`, `Profesion`, `Tip_Doc_Conyuge`, `Doc_Conyuge`, `Ape_Pat_Conyuge`, `Ape_Mat_Conyuge`, `Nom_Conyuge`, `Telefono_Fijo`, `Telefono_Celular`, `Correo_Electronico`, `Fecha_Apertura`, `Carga_Familiar`, `Tipo_Vivienda`, `Ruc_Laboral`, `Centro_Laboral`, `Cargo`, `Fecha_Ingreso`, `Telefono_Laboral`, `Razon_Social`, `Fecha_Constitucion`, `Tipo_Empresa`, `RRPP`, `Tamano_Empresa`, `Cal_Interna`, `Cal_Externa`, `Activo`, `Usuario_Registro`, `Fecha_Registro`, `Hora_Registro`, `Usuario_Modifica`, `Fecha_Modifica`, `Hora_Modifica`, `Nom_Tipo_Persona`, `Nom_Tipo_Documento`)
+VALUES
+	(27,'2','DNI','25723525','DIAZ','DIAZ','JOSE AMADEO MARTIN','DIAZ DIAZ JOSE AMADEO MARTIN','1974-11-06','9179','M','2','SUP','DEIF','1010','61','DNI','41191089','RAMIREZ','ORTEGA','MIRYAN AMELIA','5323380','977448524','jadiaz@farmaciasperuanas.pe','2020-03-19',6,'2','10257235250','FARMACIAS PERUANAS','13','2018-03-31','5534206','',NULL,'1','',NULL,'NOR','NOR',1,NULL,NULL,NULL,NULL,NULL,NULL,'NATURAL','DNI'),
+	(28,'1','RUC','10257235250','','','','  ',NULL,'9179','F','1','BCH','AMAC','7220','1','CE','','','','','4411526','977448524','informes@joedayz.pe','2018-12-03',NULL,'1','','','1','2018-11-30','','JOEDAYZ','2018-11-28','4','12345',0000000003,'NOR','NOR',1,NULL,NULL,NULL,NULL,NULL,NULL,'JURIDICA','RUC'),
+	(29,'2','DNI','34564567','PEREZ','PEREZ','JUAN','PEREZ PEREZ JUAN','1980-07-23','9179','M','1','LIC','AMAC','1429','7','DNI','41191089','PEREZ','PEREZ','ROSA','4564567','978789003','juan@gmail.com','2020-03-28',3,'1','10457231950','REPSOL','15','2020-03-01','5534206','',NULL,'1','',NULL,'DUD','NOR',1,NULL,NULL,NULL,NULL,NULL,NULL,'NATURAL','DNI'),
+	(30,'1','RUC','20516675416','','','','  ',NULL,'9179','F','1','BCH','AMAC','1010','1','CE','','','','','415000','','informes@acme.pe','2018-02-28',NULL,'1','','','1',NULL,'','ACME','2018-02-13','4','12345',0000000010,'NOR','NOR',1,NULL,NULL,NULL,NULL,NULL,NULL,'JURIDICA','Carnet Extranjería'),
+	(31,'2','CE','23456789','PAJARES','PAJARES','LUIS','PAJARES PAJARES LUIS','1991-11-27','9179','F','1','BCH','AMAC','1010','1','DNI','41191089','RAMIREZ','ORTEGA','JUANA','5323380','977448524','joedayzperu@gmail.com','2020-04-17',0,'1','10257235250','FARMACIAS PERUANAS','1','2020-03-06','5534206','',NULL,'1','',NULL,'CPP','CPP',1,NULL,NULL,NULL,NULL,NULL,NULL,'NATURAL','Carnet Extranjería'),
+	(32,'2','CE','123433424','RAMIREZ','RAMIREZ','MARCO','RAMIREZ RAMIREZ MARCO','1980-12-30','9179','F','1','BCH','AMAC','1010','1','DNI','41191089','ROSA','ROSA','MARIA','243132412','2134231421','marco@gmail.com','2020-03-27',0,'1','10457231950','REPSOL','1','2020-04-06','5534206','',NULL,'1','',NULL,'CPP','CPP',1,NULL,NULL,NULL,NULL,NULL,NULL,'NATURAL','Carnet Extranjería'),
+	(33,'1','CE','10257235250','','','','  ',NULL,'9179','F','1','BCH','AMAC','1010','1','CE','','','','','5323380','977448524','acme@acme2.com','2018-12-02',NULL,'1','','','1',NULL,'','ACME 2','2020-04-23','1','12346',0000000150,'CPP','CPP',1,NULL,NULL,NULL,NULL,NULL,NULL,'JURIDICA','Carnet Extranjería');
+
+/*!40000 ALTER TABLE `Clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -467,66 +541,73 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `direcciones`;
 
 CREATE TABLE `direcciones` (
-  `cod_direccion` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_distrito` varchar(255) DEFAULT NULL,
-  `cod_dpto` varchar(255) DEFAULT NULL,
-  `cod_provincia` varchar(255) DEFAULT NULL,
-  `departamento` varchar(255) DEFAULT NULL,
-  `dirección` varchar(255) DEFAULT NULL,
-  `distrito` varchar(255) DEFAULT NULL,
-  `fecha_modifica` date DEFAULT NULL,
-  `fecha_registro` date DEFAULT NULL,
-  `hora_modifica` time DEFAULT NULL,
-  `hora_registro` time DEFAULT NULL,
-  `interior_dpto` varchar(255) DEFAULT NULL,
-  `lote_dreccion` varchar(255) DEFAULT NULL,
-  `lugar` varchar(255) DEFAULT NULL,
-  `mz_direccion` varchar(255) DEFAULT NULL,
-  `nombre_tipo_direccion` varchar(255) DEFAULT NULL,
-  `nro_direccion` varchar(255) DEFAULT NULL,
-  `provincia` varchar(255) DEFAULT NULL,
-  `tipo_agrupacion` varchar(255) DEFAULT NULL,
-  `tipo_calle` varchar(255) DEFAULT NULL,
-  `tipo_direccion` varchar(255) NOT NULL,
-  `usuario_modifica` varchar(255) DEFAULT NULL,
-  `usuario_registro` varchar(255) DEFAULT NULL,
-  `cod_socio` int(11) NOT NULL,
-  PRIMARY KEY (`cod_direccion`),
-  KEY `FKev18bp6fcxlm8jwo90cog0eon` (`cod_socio`),
-  CONSTRAINT `FKev18bp6fcxlm8jwo90cog0eon` FOREIGN KEY (`cod_socio`) REFERENCES `socios` (`cod_socio`)
+  `Cod_Direccion` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Tipo_Direccion` varchar(1) NOT NULL,
+  `Cod_Socio` int(10) unsigned NOT NULL,
+  `Tipo_Calle` varchar(2) DEFAULT NULL,
+  `Dirección` varchar(50) DEFAULT NULL,
+  `Nro_direccion` varchar(10) DEFAULT NULL,
+  `Interior_Dpto` varchar(20) DEFAULT NULL,
+  `Mz_Direccion` varchar(10) DEFAULT NULL,
+  `Lote_Dreccion` varchar(10) DEFAULT NULL,
+  `Tipo_Agrupacion` varchar(2) DEFAULT NULL,
+  `Lugar` varchar(20) DEFAULT NULL,
+  `Usuario_Registro` varchar(10) DEFAULT NULL,
+  `Fecha_Registro` date DEFAULT NULL,
+  `Hora_Registro` time DEFAULT NULL,
+  `Usuario_Modifica` varchar(10) DEFAULT NULL,
+  `Fecha_Modifica` date DEFAULT NULL,
+  `Hora_Modifica` time DEFAULT NULL,
+  `Departamento` varchar(255) DEFAULT NULL,
+  `Distrito` varchar(255) DEFAULT NULL,
+  `Provincia` varchar(255) DEFAULT NULL,
+  `Nombre_Tipo_Direccion` varchar(12) DEFAULT NULL,
+  `Cod_Dpto` varchar(6) DEFAULT NULL,
+  `Cod_Provincia` varchar(6) DEFAULT NULL,
+  `Cod_Distrito` varchar(6) DEFAULT NULL,
+  PRIMARY KEY (`Cod_Direccion`),
+  KEY `FK7yu9f90f9hj5bmeb87ie8jbty` (`Cod_Socio`),
+  CONSTRAINT `FK7yu9f90f9hj5bmeb87ie8jbty` FOREIGN KEY (`Cod_Socio`) REFERENCES `Clientes` (`Cod_Socio`),
+  CONSTRAINT `FKhr4pcrw1kmftxcayc435dl26o` FOREIGN KEY (`Cod_Socio`) REFERENCES `clientes` (`Cod_Socio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `direcciones` WRITE;
 /*!40000 ALTER TABLE `direcciones` DISABLE KEYS */;
 
-INSERT INTO `direcciones` (`cod_direccion`, `cod_distrito`, `cod_dpto`, `cod_provincia`, `departamento`, `dirección`, `distrito`, `fecha_modifica`, `fecha_registro`, `hora_modifica`, `hora_registro`, `interior_dpto`, `lote_dreccion`, `lugar`, `mz_direccion`, `nombre_tipo_direccion`, `nro_direccion`, `provincia`, `tipo_agrupacion`, `tipo_calle`, `tipo_direccion`, `usuario_modifica`, `usuario_registro`, `cod_socio`)
+INSERT INTO `direcciones` (`Cod_Direccion`, `Tipo_Direccion`, `Cod_Socio`, `Tipo_Calle`, `Dirección`, `Nro_direccion`, `Interior_Dpto`, `Mz_Direccion`, `Lote_Dreccion`, `Tipo_Agrupacion`, `Lugar`, `Usuario_Registro`, `Fecha_Registro`, `Hora_Registro`, `Usuario_Modifica`, `Fecha_Modifica`, `Hora_Modifica`, `Departamento`, `Distrito`, `Provincia`, `Nombre_Tipo_Direccion`, `Cod_Dpto`, `Cod_Provincia`, `Cod_Distrito`)
 VALUES
-	(1,'070106','070000','070100','Callao','URB. LOS PROCERES MZ P LT 29','Ventanilla',NULL,NULL,NULL,NULL,'201','29','SATELITE','P','DOMICILIARIA','201','Prov. Const. del Callao','UB','CL','D',NULL,NULL,1);
+	(10,'G',28,'AL','URB. LOS PROCERES MZ P LT 29','201','201','P','29','UB','SATELITE',NULL,NULL,NULL,NULL,NULL,NULL,'Callao','Ventanilla','Prov. Const. del Callao','LEGAL','070000','070100','070106'),
+	(11,'D',29,'CL','URB. LOS LICENCIADOS ','1','101','T','5','UB','PRIMER SECTOR',NULL,NULL,NULL,NULL,NULL,NULL,'Callao','Ventanilla','Prov. Const. del Callao','DOMICILIARIA','070000','070100','070106'),
+	(12,'G',30,'AL','Calle Víctor Alzamora N° 147','147','147','M','5','UB','SANTA CATALINA',NULL,NULL,NULL,NULL,NULL,NULL,'Lima','La Victoria','Lima','LEGAL','150000','150100','150115'),
+	(14,'D',27,'AL','URB. LOS PROCERES MZ P LT 29','201','201','P','29','UB','SATELITE',NULL,NULL,NULL,NULL,NULL,NULL,'Callao','Ventanilla','Prov. Const. del Callao','DOMICILIARIA','070000','070100','070106'),
+	(15,'D',31,'AL','URB. LOS PROCERES MZ P LT 29','201','201','P','29','AH','LA CHOZA',NULL,NULL,NULL,NULL,NULL,NULL,'La Libertad','Chicama','Ascope','DOMICILIARIA','130000','130200','130202'),
+	(16,'D',32,'AL','Calle Víctor Alzamora N° 147','147','147','P','29','AG','CHOZ',NULL,NULL,NULL,NULL,NULL,NULL,'Arequipa','Mariano Nicolas Valcarcel','Camana','DOMICILIARIA','040000','040200','040203'),
+	(17,'G',33,'AL','URB. LOS PROCERES MZ P LT 29','201','201','P','29','AG','SANTA',NULL,NULL,NULL,NULL,NULL,NULL,'Callao','Ventanilla','Prov. Const. del Callao','LEGAL','070000','070100','070106');
 
 /*!40000 ALTER TABLE `direcciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table estado
+# Dump of table Estado
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `estado`;
+DROP TABLE IF EXISTS `Estado`;
 
-CREATE TABLE `estado` (
-  `codigo` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `Estado` (
+  `Codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `estado` WRITE;
-/*!40000 ALTER TABLE `estado` DISABLE KEYS */;
+LOCK TABLES `Estado` WRITE;
+/*!40000 ALTER TABLE `Estado` DISABLE KEYS */;
 
-INSERT INTO `estado` (`codigo`, `descripcion`)
+INSERT INTO `Estado` (`Codigo`, `Descripcion`)
 VALUES
 	(1,'ACTIVO'),
 	(2,'INACTIVO');
 
-/*!40000 ALTER TABLE `estado` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Estado` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -557,21 +638,49 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table fuente_ingresos
+# Dump of table Filter_Metadata
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `fuente_ingresos`;
+DROP TABLE IF EXISTS `Filter_Metadata`;
 
-CREATE TABLE `fuente_ingresos` (
-  `codigo` varchar(255) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `Filter_Metadata` (
+  `Id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `Ant_Pattern` varchar(500) DEFAULT NULL COMMENT 'Role Id',
+  `Expression` varchar(500) DEFAULT NULL COMMENT 'Menu Id',
+  `Sort_Order` int(10) DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='Role Menu';
+
+LOCK TABLES `Filter_Metadata` WRITE;
+/*!40000 ALTER TABLE `Filter_Metadata` DISABLE KEYS */;
+
+INSERT INTO `Filter_Metadata` (`Id`, `Ant_Pattern`, `Expression`, `Sort_Order`)
+VALUES
+	(110,'/','isAuthenticated()',10),
+	(120,'/login/*','permitAll',20),
+	(130,'/logout','permitAll',30),
+	(140,'/clientes/**','hasAnyRole(\"ADMINISTRADOR\", \"SUPERVISOR\")',40),
+	(150,'/reportes/**','hasAnyRole(\"ADMINISTRADOR\", \"OPERADOR\", \"SUPERVISOR\")',50);
+
+/*!40000 ALTER TABLE `Filter_Metadata` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table Fuente_Ingresos
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Fuente_Ingresos`;
+
+CREATE TABLE `Fuente_Ingresos` (
+  `Codigo` varchar(4) NOT NULL,
+  `Descripcion` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `fuente_ingresos` WRITE;
-/*!40000 ALTER TABLE `fuente_ingresos` DISABLE KEYS */;
+LOCK TABLES `Fuente_Ingresos` WRITE;
+/*!40000 ALTER TABLE `Fuente_Ingresos` DISABLE KEYS */;
 
-INSERT INTO `fuente_ingresos` (`codigo`, `descripcion`)
+INSERT INTO `Fuente_Ingresos` (`Codigo`, `Descripcion`)
 VALUES
 	('AMAC','AMA DE CASA'),
 	('DEIF','DEPENDIENTE CON INGRESOS FIJOS'),
@@ -585,53 +694,54 @@ VALUES
 	('PROI','PROFESIONAL INDEPENDIENTE'),
 	('RENT','RENTISTA');
 
-/*!40000 ALTER TABLE `fuente_ingresos` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Fuente_Ingresos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table menus
+# Dump of table Menus
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `menus`;
+DROP TABLE IF EXISTS `Menus`;
 
-CREATE TABLE `menus` (
-  `cod_menu` int(11) NOT NULL AUTO_INCREMENT,
-  `activo` int(11) DEFAULT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  `orden` int(11) DEFAULT NULL,
-  `padre` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cod_menu`)
+CREATE TABLE `Menus` (
+  `Cod_Menu` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(30) DEFAULT NULL,
+  `Padre` int(10) unsigned DEFAULT NULL,
+  `Orden` int(10) unsigned DEFAULT NULL,
+  `Activo` int(10) unsigned DEFAULT NULL,
+  `Url` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`Cod_Menu`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `menus` WRITE;
-/*!40000 ALTER TABLE `menus` DISABLE KEYS */;
+LOCK TABLES `Menus` WRITE;
+/*!40000 ALTER TABLE `Menus` DISABLE KEYS */;
 
-INSERT INTO `menus` (`cod_menu`, `activo`, `descripcion`, `orden`, `padre`)
+INSERT INTO `Menus` (`Cod_Menu`, `Descripcion`, `Padre`, `Orden`, `Activo`, `Url`)
 VALUES
-	(1,1,'Clientes',0,0),
-	(2,1,'Mantenimientos',1,0),
-	(3,1,'Reportes',2,0),
-	(4,1,'Clientes',0,3);
+	(1,'Maestros',0,1,1,NULL),
+	(2,'Clientes',1,1,1,'/clientes/list'),
+	(3,'Reportes',0,2,1,NULL),
+	(4,'Clientes',3,1,1,'/reportes/list');
 
-/*!40000 ALTER TABLE `menus` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table nacionalidad
+# Dump of table Nacionalidad
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `nacionalidad`;
+DROP TABLE IF EXISTS `Nacionalidad`;
 
-CREATE TABLE `nacionalidad` (
-  `codigo` varchar(255) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `Nacionalidad` (
+  `Codigo` varchar(4) NOT NULL,
+  `Descripcion` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `nacionalidad` WRITE;
-/*!40000 ALTER TABLE `nacionalidad` DISABLE KEYS */;
+LOCK TABLES `Nacionalidad` WRITE;
+/*!40000 ALTER TABLE `Nacionalidad` DISABLE KEYS */;
 
-INSERT INTO `nacionalidad` (`codigo`, `descripcion`)
+INSERT INTO `Nacionalidad` (`Codigo`, `Descripcion`)
 VALUES
 	('9001','AFGANISTAN'),
 	('9002','ALBANIA'),
@@ -879,25 +989,25 @@ VALUES
 	('9244','ZAMBIA'),
 	('9245','ZIMBABWE');
 
-/*!40000 ALTER TABLE `nacionalidad` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Nacionalidad` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table nivel_educacion
+# Dump of table Nivel_Educacion
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `nivel_educacion`;
+DROP TABLE IF EXISTS `Nivel_Educacion`;
 
-CREATE TABLE `nivel_educacion` (
-  `codigo` varchar(255) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `Nivel_Educacion` (
+  `Codigo` varchar(3) NOT NULL,
+  `Descripcion` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `nivel_educacion` WRITE;
-/*!40000 ALTER TABLE `nivel_educacion` DISABLE KEYS */;
+LOCK TABLES `Nivel_Educacion` WRITE;
+/*!40000 ALTER TABLE `Nivel_Educacion` DISABLE KEYS */;
 
-INSERT INTO `nivel_educacion` (`codigo`, `descripcion`)
+INSERT INTO `Nivel_Educacion` (`Codigo`, `Descripcion`)
 VALUES
 	('BCH','BACHILLER'),
 	('DOC','DOCTOR'),
@@ -910,49 +1020,25 @@ VALUES
 	('SUP','SUPERIOR'),
 	('TEC','TECNICO');
 
-/*!40000 ALTER TABLE `nivel_educacion` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Nivel_Educacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table Permisos
+# Dump of table Profesiones
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `Permisos`;
+DROP TABLE IF EXISTS `Profesiones`;
 
-CREATE TABLE `Permisos` (
-  `Id` varchar(255) NOT NULL,
-  `Permiso_Label` varchar(255) NOT NULL DEFAULT '',
-  `Permiso_Value` varchar(255) NOT NULL DEFAULT ''
+CREATE TABLE `Profesiones` (
+  `Codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(110) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `Permisos` WRITE;
-/*!40000 ALTER TABLE `Permisos` DISABLE KEYS */;
+LOCK TABLES `Profesiones` WRITE;
+/*!40000 ALTER TABLE `Profesiones` DISABLE KEYS */;
 
-INSERT INTO `Permisos` (`Id`, `Permiso_Label`, `Permiso_Value`)
-VALUES
-	('OPERADOR','Operador','ROLE_OPERADOR'),
-	('SUPERVISOR','Supervisor','ROLE_SUPERVISOR'),
-	('ADMINISTRADOR','Administrador','ROLE_ADMINISTRADOR');
-
-/*!40000 ALTER TABLE `Permisos` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table profesiones
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `profesiones`;
-
-CREATE TABLE `profesiones` (
-  `codigo` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-LOCK TABLES `profesiones` WRITE;
-/*!40000 ALTER TABLE `profesiones` DISABLE KEYS */;
-
-INSERT INTO `profesiones` (`codigo`, `descripcion`)
+INSERT INTO `Profesiones` (`Codigo`, `Descripcion`)
 VALUES
 	(1,'ABOGADO'),
 	(2,'ACTOR, ACTRIZ, ARTISTA, DIRECTOR DE ESPECTACULOS, COREOGRAFO, MODELO, MÚSICO, ESCENOGRAFO Y BAILARINES'),
@@ -1072,7 +1158,7 @@ VALUES
 	(116,'OTROS  (señalar)'),
 	(117,'NO DECLARA');
 
-/*!40000 ALTER TABLE `profesiones` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Profesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -1082,207 +1168,152 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `representantes`;
 
 CREATE TABLE `representantes` (
-  `cod_representante` int(11) NOT NULL AUTO_INCREMENT,
-  `ape_materno` varchar(255) DEFAULT NULL,
-  `ape_paterno` varchar(255) DEFAULT NULL,
-  `cargo` smallint(6) DEFAULT NULL,
-  `fecha_cargo` date DEFAULT NULL,
-  `fecha_modifica` date DEFAULT NULL,
-  `fecha_registro` date DEFAULT NULL,
-  `hora_modifica` time DEFAULT NULL,
-  `hora_registro` time DEFAULT NULL,
-  `nom_cargo` varchar(255) DEFAULT NULL,
-  `nombres` varchar(255) DEFAULT NULL,
-  `nro_documento` varchar(255) NOT NULL,
-  `tipo_documento` varchar(255) DEFAULT NULL,
-  `usuario_modifica` varchar(255) DEFAULT NULL,
-  `usuario_registro` varchar(255) DEFAULT NULL,
-  `cod_socio` int(11) NOT NULL,
-  PRIMARY KEY (`cod_representante`),
-  KEY `FK8545jb03rpsf6a57edjcxdvs6` (`cod_socio`),
-  CONSTRAINT `FK8545jb03rpsf6a57edjcxdvs6` FOREIGN KEY (`cod_socio`) REFERENCES `socios` (`cod_socio`)
+  `Cod_Representante` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Nro_Documento` varchar(10) NOT NULL DEFAULT '',
+  `Cod_Socio` int(10) unsigned NOT NULL,
+  `Tipo_Documento` varchar(3) DEFAULT NULL,
+  `Ape_Paterno` varchar(20) DEFAULT NULL,
+  `Ape_Materno` varchar(20) DEFAULT NULL,
+  `Nombres` varchar(20) DEFAULT NULL,
+  `Cargo` decimal(3,0) DEFAULT NULL,
+  `Fecha_Cargo` date DEFAULT NULL,
+  `Fecha_Registro` date DEFAULT NULL,
+  `Usuario_Registro` varchar(10) DEFAULT NULL,
+  `Hora_Registro` time DEFAULT NULL,
+  `Usuario_Modifica` varchar(10) DEFAULT NULL,
+  `Fecha_Modifica` date DEFAULT NULL,
+  `Hora_Modifica` time DEFAULT NULL,
+  `Nom_Cargo` varchar(70) DEFAULT NULL,
+  PRIMARY KEY (`Cod_Representante`),
+  KEY `FKqrifckbo2mr3kqmcumm4vk7kv` (`Cod_Socio`),
+  CONSTRAINT `FKirh5us140kxdui2dwikjmw4k3` FOREIGN KEY (`Cod_Socio`) REFERENCES `clientes` (`Cod_Socio`),
+  CONSTRAINT `FKqrifckbo2mr3kqmcumm4vk7kv` FOREIGN KEY (`Cod_Socio`) REFERENCES `Clientes` (`Cod_Socio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `representantes` WRITE;
+/*!40000 ALTER TABLE `representantes` DISABLE KEYS */;
 
-
-# Dump of table Role_Permisos
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `Role_Permisos`;
-
-CREATE TABLE `Role_Permisos` (
-  `Id_Role` varchar(255) NOT NULL,
-  `Id_Permiso` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-LOCK TABLES `Role_Permisos` WRITE;
-/*!40000 ALTER TABLE `Role_Permisos` DISABLE KEYS */;
-
-INSERT INTO `Role_Permisos` (`Id_Role`, `Id_Permiso`)
+INSERT INTO `representantes` (`Cod_Representante`, `Nro_Documento`, `Cod_Socio`, `Tipo_Documento`, `Ape_Paterno`, `Ape_Materno`, `Nombres`, `Cargo`, `Fecha_Cargo`, `Fecha_Registro`, `Usuario_Registro`, `Hora_Registro`, `Usuario_Modifica`, `Fecha_Modifica`, `Hora_Modifica`, `Nom_Cargo`)
 VALUES
-	('ADMINISTRADOR','ADMINISTRADOR'),
-	('OPERADOR','OPERADOR'),
-	('SUPERVISOR','SUPERVISOR');
+	(2,'41191089',30,'DNI','OCHOA','ROSALES','ARMIDA',31,'2020-03-28',NULL,NULL,NULL,NULL,NULL,NULL,'SUB-PREFECTO'),
+	(3,'25723525',28,'DNI','DIAZ','DIAZ','AMADEO',10,'2020-04-03',NULL,NULL,NULL,NULL,NULL,NULL,'DECANO'),
+	(4,'25723525',33,'DNI','DIAZ','DIAZ','JOSE',18,'2020-04-17',NULL,NULL,NULL,NULL,NULL,NULL,'JUEZ ');
 
-/*!40000 ALTER TABLE `Role_Permisos` ENABLE KEYS */;
+/*!40000 ALTER TABLE `representantes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table sexo
+# Dump of table Role
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `sexo`;
+DROP TABLE IF EXISTS `Role`;
 
-CREATE TABLE `sexo` (
-  `codigo` varchar(255) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `Role` (
+  `Id` int(10) NOT NULL AUTO_INCREMENT,
+  `Nom_Role` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `sexo` WRITE;
-/*!40000 ALTER TABLE `sexo` DISABLE KEYS */;
+LOCK TABLES `Role` WRITE;
+/*!40000 ALTER TABLE `Role` DISABLE KEYS */;
 
-INSERT INTO `sexo` (`codigo`, `descripcion`)
+INSERT INTO `Role` (`Id`, `Nom_Role`)
+VALUES
+	(1,'ROLE_ADMINISTRADOR'),
+	(2,'ROLE_OPERADOR'),
+	(3,'ROLE_SUPERVISOR');
+
+/*!40000 ALTER TABLE `Role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table Sexo
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Sexo`;
+
+CREATE TABLE `Sexo` (
+  `Codigo` varchar(1) NOT NULL,
+  `Descripcion` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `Sexo` WRITE;
+/*!40000 ALTER TABLE `Sexo` DISABLE KEYS */;
+
+INSERT INTO `Sexo` (`Codigo`, `Descripcion`)
 VALUES
 	('F','FEMENINO'),
 	('M','MASCULINO');
 
-/*!40000 ALTER TABLE `sexo` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Sexo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table socios
+# Dump of table Tamano_Empresa
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `socios`;
+DROP TABLE IF EXISTS `Tamano_Empresa`;
 
-CREATE TABLE `socios` (
-  `cod_socio` int(11) NOT NULL AUTO_INCREMENT,
-  `activo` int(11) DEFAULT NULL,
-  `ape_mat_conyuge` varchar(255) DEFAULT NULL,
-  `ape_materno` varchar(255) DEFAULT NULL,
-  `ape_pat_conyuge` varchar(255) DEFAULT NULL,
-  `ape_paterno` varchar(255) DEFAULT NULL,
-  `cal_externa` varchar(255) DEFAULT NULL,
-  `cal_interna` varchar(255) DEFAULT NULL,
-  `carga_familiar` int(11) DEFAULT NULL,
-  `cargo` varchar(255) DEFAULT NULL,
-  `centro_laboral` varchar(255) DEFAULT NULL,
-  `ciiu` varchar(255) DEFAULT NULL,
-  `condicion_laboral` varchar(255) DEFAULT NULL,
-  `correo_electronico` varchar(255) DEFAULT NULL,
-  `doc_conyuge` varchar(255) DEFAULT NULL,
-  `educacion` varchar(255) DEFAULT NULL,
-  `estado_civil` varchar(255) DEFAULT NULL,
-  `fecha_apertura` date DEFAULT NULL,
-  `fecha_constitucion` date DEFAULT NULL,
-  `fecha_ingreso` date DEFAULT NULL,
-  `fecha_modifica` date DEFAULT NULL,
-  `fecha_nacimiento` date DEFAULT NULL,
-  `fecha_registro` date DEFAULT NULL,
-  `hora_modifica` time DEFAULT NULL,
-  `hora_registro` time DEFAULT NULL,
-  `nacionalidad` varchar(255) DEFAULT NULL,
-  `nom_completo` varchar(255) DEFAULT NULL,
-  `nom_conyuge` varchar(255) DEFAULT NULL,
-  `nom_tipo_documento` varchar(255) DEFAULT NULL,
-  `nom_tipo_persona` varchar(255) DEFAULT NULL,
-  `nombres` varchar(255) DEFAULT NULL,
-  `nro_documento` varchar(255) DEFAULT NULL,
-  `profesion` varchar(255) DEFAULT NULL,
-  `razon_social` varchar(255) DEFAULT NULL,
-  `rrpp` varchar(255) DEFAULT NULL,
-  `ruc_laboral` varchar(255) DEFAULT NULL,
-  `sexo` varchar(255) DEFAULT NULL,
-  `tamano_empresa` int(11) DEFAULT NULL,
-  `telefono_celular` varchar(255) DEFAULT NULL,
-  `telefono_fijo` varchar(255) DEFAULT NULL,
-  `telefono_laboral` varchar(255) DEFAULT NULL,
-  `tip_doc_conyuge` varchar(255) DEFAULT NULL,
-  `tipo_documento` varchar(255) DEFAULT NULL,
-  `tipo_empresa` varchar(255) DEFAULT NULL,
-  `tipo_persona` varchar(255) DEFAULT NULL,
-  `tipo_vivienda` varchar(255) DEFAULT NULL,
-  `usuario_modifica` varchar(255) DEFAULT NULL,
-  `usuario_registro` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`cod_socio`)
+CREATE TABLE `Tamano_Empresa` (
+  `Codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `socios` WRITE;
-/*!40000 ALTER TABLE `socios` DISABLE KEYS */;
+LOCK TABLES `Tamano_Empresa` WRITE;
+/*!40000 ALTER TABLE `Tamano_Empresa` DISABLE KEYS */;
 
-INSERT INTO `socios` (`cod_socio`, `activo`, `ape_mat_conyuge`, `ape_materno`, `ape_pat_conyuge`, `ape_paterno`, `cal_externa`, `cal_interna`, `carga_familiar`, `cargo`, `centro_laboral`, `ciiu`, `condicion_laboral`, `correo_electronico`, `doc_conyuge`, `educacion`, `estado_civil`, `fecha_apertura`, `fecha_constitucion`, `fecha_ingreso`, `fecha_modifica`, `fecha_nacimiento`, `fecha_registro`, `hora_modifica`, `hora_registro`, `nacionalidad`, `nom_completo`, `nom_conyuge`, `nom_tipo_documento`, `nom_tipo_persona`, `nombres`, `nro_documento`, `profesion`, `razon_social`, `rrpp`, `ruc_laboral`, `sexo`, `tamano_empresa`, `telefono_celular`, `telefono_fijo`, `telefono_laboral`, `tip_doc_conyuge`, `tipo_documento`, `tipo_empresa`, `tipo_persona`, `tipo_vivienda`, `usuario_modifica`, `usuario_registro`)
-VALUES
-	(1,NULL,'ORTEGA','DIAZ','MIRYAN','DIAZ','NOR','NOR',6,'13','JOEDAYZ','7220','DEIF','jamdiazdiaz@gmail.com','41191090','SUP','2','2020-03-29',NULL,'2020-03-29',NULL,'1974-11-06',NULL,NULL,NULL,'9179','DIAZ DIAZ JOSE','MIRYAN AMELIA','DNI','NATURAL','JOSE','25723527','61','','','10257235250','M',NULL,'977448524','5323380','5534206','DNI','DNI','1','2','1',NULL,NULL);
-
-/*!40000 ALTER TABLE `socios` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table tamano_empresa
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `tamano_empresa`;
-
-CREATE TABLE `tamano_empresa` (
-  `codigo` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-LOCK TABLES `tamano_empresa` WRITE;
-/*!40000 ALTER TABLE `tamano_empresa` DISABLE KEYS */;
-
-INSERT INTO `tamano_empresa` (`codigo`, `descripcion`)
+INSERT INTO `Tamano_Empresa` (`Codigo`, `Descripcion`)
 VALUES
 	(1,'MICRO EMPRESA'),
 	(2,'PEQUEÑA EMPRESA'),
 	(3,'MEDIANA EMPRESA'),
 	(4,'GRAN EMPRESA');
 
-/*!40000 ALTER TABLE `tamano_empresa` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Tamano_Empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table tipos_direccion
+# Dump of table Tipos_Direccion
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tipos_direccion`;
+DROP TABLE IF EXISTS `Tipos_Direccion`;
 
-CREATE TABLE `tipos_direccion` (
-  `codigo` varchar(255) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `Tipos_Direccion` (
+  `Codigo` varchar(1) NOT NULL,
+  `Descripcion` varchar(12) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `tipos_direccion` WRITE;
-/*!40000 ALTER TABLE `tipos_direccion` DISABLE KEYS */;
+LOCK TABLES `Tipos_Direccion` WRITE;
+/*!40000 ALTER TABLE `Tipos_Direccion` DISABLE KEYS */;
 
-INSERT INTO `tipos_direccion` (`codigo`, `descripcion`)
+INSERT INTO `Tipos_Direccion` (`Codigo`, `Descripcion`)
 VALUES
 	('D','DOMICILIARIA'),
 	('G','LEGAL'),
 	('L','LABORAL');
 
-/*!40000 ALTER TABLE `tipos_direccion` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Tipos_Direccion` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table tipos_documento
+# Dump of table Tipos_Documento
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tipos_documento`;
+DROP TABLE IF EXISTS `Tipos_Documento`;
 
-CREATE TABLE `tipos_documento` (
-  `codigo` varchar(255) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `Tipos_Documento` (
+  `Codigo` varchar(3) NOT NULL,
+  `Descripcion` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `tipos_documento` WRITE;
-/*!40000 ALTER TABLE `tipos_documento` DISABLE KEYS */;
+LOCK TABLES `Tipos_Documento` WRITE;
+/*!40000 ALTER TABLE `Tipos_Documento` DISABLE KEYS */;
 
-INSERT INTO `tipos_documento` (`codigo`, `descripcion`)
+INSERT INTO `Tipos_Documento` (`Codigo`, `Descripcion`)
 VALUES
 	('CE','Carnet Extranjería'),
 	('CI','CI'),
@@ -1291,25 +1322,25 @@ VALUES
 	('RUC','RUC'),
 	('SFL','SFL');
 
-/*!40000 ALTER TABLE `tipos_documento` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Tipos_Documento` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table tipos_empresa
+# Dump of table Tipos_Empresa
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tipos_empresa`;
+DROP TABLE IF EXISTS `Tipos_Empresa`;
 
-CREATE TABLE `tipos_empresa` (
-  `codigo` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `Tipos_Empresa` (
+  `Codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `tipos_empresa` WRITE;
-/*!40000 ALTER TABLE `tipos_empresa` DISABLE KEYS */;
+LOCK TABLES `Tipos_Empresa` WRITE;
+/*!40000 ALTER TABLE `Tipos_Empresa` DISABLE KEYS */;
 
-INSERT INTO `tipos_empresa` (`codigo`, `descripcion`)
+INSERT INTO `Tipos_Empresa` (`Codigo`, `Descripcion`)
 VALUES
 	(1,'S.A.'),
 	(2,'S.A.C.'),
@@ -1317,78 +1348,54 @@ VALUES
 	(4,'E.I.R.L.'),
 	(5,'S.A.A.');
 
-/*!40000 ALTER TABLE `tipos_empresa` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Tipos_Empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table tipos_persona
+# Dump of table Tipos_Persona
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tipos_persona`;
+DROP TABLE IF EXISTS `Tipos_Persona`;
 
-CREATE TABLE `tipos_persona` (
-  `codigo` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `Tipos_Persona` (
+  `Codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `tipos_persona` WRITE;
-/*!40000 ALTER TABLE `tipos_persona` DISABLE KEYS */;
+LOCK TABLES `Tipos_Persona` WRITE;
+/*!40000 ALTER TABLE `Tipos_Persona` DISABLE KEYS */;
 
-INSERT INTO `tipos_persona` (`codigo`, `descripcion`)
+INSERT INTO `Tipos_Persona` (`Codigo`, `Descripcion`)
 VALUES
 	(1,'JURIDICA'),
 	(2,'NATURAL');
 
-/*!40000 ALTER TABLE `tipos_persona` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Tipos_Persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table Tipos_Usuario
+# Dump of table Tipos_Vivienda
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `Tipos_Usuario`;
+DROP TABLE IF EXISTS `Tipos_Vivienda`;
 
-CREATE TABLE `Tipos_Usuario` (
-  `Id` varchar(255) NOT NULL,
-  `Description` varchar(255) DEFAULT NULL,
-  `Name` varchar(255) NOT NULL
+CREATE TABLE `Tipos_Vivienda` (
+  `Codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `Tipos_Usuario` WRITE;
-/*!40000 ALTER TABLE `Tipos_Usuario` DISABLE KEYS */;
+LOCK TABLES `Tipos_Vivienda` WRITE;
+/*!40000 ALTER TABLE `Tipos_Vivienda` DISABLE KEYS */;
 
-INSERT INTO `Tipos_Usuario` (`Id`, `Description`, `Name`)
-VALUES
-	('ADMINISTRADOR','Administrador','Administrador'),
-	('OPERADOR','Operador','Operador'),
-	('SUPERVISOR','Supervisor','Supervisor');
-
-/*!40000 ALTER TABLE `Tipos_Usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table tipos_vivienda
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `tipos_vivienda`;
-
-CREATE TABLE `tipos_vivienda` (
-  `codigo` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-LOCK TABLES `tipos_vivienda` WRITE;
-/*!40000 ALTER TABLE `tipos_vivienda` DISABLE KEYS */;
-
-INSERT INTO `tipos_vivienda` (`codigo`, `descripcion`)
+INSERT INTO `Tipos_Vivienda` (`Codigo`, `Descripcion`)
 VALUES
 	(1,'PROPIA'),
 	(2,'ALQUILADA'),
 	(3,'OTROS');
 
-/*!40000 ALTER TABLE `tipos_vivienda` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Tipos_Vivienda` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -2410,27 +2417,1103 @@ VALUES
 	('100104','10','01','04','Churubamba'),
 	('100105','10','01','05','Margos'),
 	('100106','10','01','06','Quisqui'),
-	('100107','10','01','07','San Francisco de Cayran');
+	('100107','10','01','07','San Francisco de Cayran'),
+	('100108','10','01','08','San Pedro de Chaulan'),
+	('100109','10','01','09','Santa Maria del Valle'),
+	('100110','10','01','10','Yarumayo'),
+	('100111','10','01','11','Pillco Marca'),
+	('100112','10','01','12','Yacus'),
+	('100200','10','02','00','Ambo'),
+	('100201','10','02','01','Ambo'),
+	('100202','10','02','02','Cayna'),
+	('100203','10','02','03','Colpas'),
+	('100204','10','02','04','Conchamarca'),
+	('100205','10','02','05','Huacar'),
+	('100206','10','02','06','San Francisco'),
+	('100207','10','02','07','San Rafael'),
+	('100208','10','02','08','Tomay Kichwa'),
+	('100300','10','03','00','Dos de Mayo'),
+	('100301','10','03','01','La Union'),
+	('100307','10','03','07','Chuquis'),
+	('100311','10','03','11','Marias'),
+	('100313','10','03','13','Pachas'),
+	('100316','10','03','16','Quivilla'),
+	('100317','10','03','17','Ripan'),
+	('100321','10','03','21','Shunqui'),
+	('100322','10','03','22','Sillapata'),
+	('100323','10','03','23','Yanas'),
+	('100400','10','04','00','Huacaybamba'),
+	('100401','10','04','01','Huacaybamba'),
+	('100402','10','04','02','Canchabamba'),
+	('100403','10','04','03','Cochabamba'),
+	('100404','10','04','04','Pinra'),
+	('100500','10','05','00','Huamalies'),
+	('100501','10','05','01','Llata'),
+	('100502','10','05','02','Arancay'),
+	('100503','10','05','03','Chavin de Pariarca'),
+	('100504','10','05','04','Jacas Grande'),
+	('100505','10','05','05','Jircan'),
+	('100506','10','05','06','Miraflores'),
+	('100507','10','05','07','Monzon'),
+	('100508','10','05','08','Punchao'),
+	('100509','10','05','09','Puños'),
+	('100510','10','05','10','Singa'),
+	('100511','10','05','11','Tantamayo'),
+	('100600','10','06','00','Leoncio Prado'),
+	('100601','10','06','01','Rupa-Rupa'),
+	('100602','10','06','02','Daniel Alomias Robles'),
+	('100603','10','06','03','Hermilio Valdizan'),
+	('100604','10','06','04','Jose Crespo y Castillo'),
+	('100605','10','06','05','Luyando'),
+	('100606','10','06','06','Mariano Damaso Beraun'),
+	('100700','10','07','00','Marañon'),
+	('100701','10','07','01','Huacrachuco'),
+	('100702','10','07','02','Cholon'),
+	('100703','10','07','03','San Buenaventura'),
+	('100800','10','08','00','Pachitea'),
+	('100801','10','08','01','Panao'),
+	('100802','10','08','02','Chaglla'),
+	('100803','10','08','03','Molino'),
+	('100804','10','08','04','Umari'),
+	('100900','10','09','00','Puerto Inca'),
+	('100901','10','09','01','Puerto Inca'),
+	('100902','10','09','02','Codo del Pozuzo'),
+	('100903','10','09','03','Honoria'),
+	('100904','10','09','04','Tournavista'),
+	('100905','10','09','05','Yuyapichis'),
+	('101000','10','10','00','Lauricocha'),
+	('101001','10','10','01','Jesus'),
+	('101002','10','10','02','Baños'),
+	('101003','10','10','03','Jivia'),
+	('101004','10','10','04','Queropalca'),
+	('101005','10','10','05','Rondos'),
+	('101006','10','10','06','San Francisco de Asis'),
+	('101007','10','10','07','San Miguel de Cauri'),
+	('101100','10','11','00','Yarowilca'),
+	('101101','10','11','01','Chavinillo'),
+	('101102','10','11','02','Cahuac'),
+	('101103','10','11','03','Chacabamba'),
+	('101104','10','11','04','Chupan'),
+	('101105','10','11','05','Jacas Chico'),
+	('101106','10','11','06','Obas'),
+	('101107','10','11','07','Pampamarca'),
+	('101108','10','11','08','Choras'),
+	('110000','11','00','00','Ica'),
+	('110100','11','01','00','Ica'),
+	('110101','11','01','01','Ica'),
+	('110102','11','01','02','La Tinguiña'),
+	('110103','11','01','03','Los Aquijes'),
+	('110104','11','01','04','Ocucaje'),
+	('110105','11','01','05','Pachacutec'),
+	('110106','11','01','06','Parcona'),
+	('110107','11','01','07','Pueblo Nuevo'),
+	('110108','11','01','08','Salas'),
+	('110109','11','01','09','San Jose de los Molinos'),
+	('110110','11','01','10','San Juan Bautista'),
+	('110111','11','01','11','Santiago'),
+	('110112','11','01','12','Subtanjalla'),
+	('110113','11','01','13','Tate'),
+	('110114','11','01','14','Yauca del Rosario'),
+	('110200','11','02','00','Chincha'),
+	('110201','11','02','01','Chincha Alta'),
+	('110202','11','02','02','Alto Laran'),
+	('110203','11','02','03','Chavin'),
+	('110204','11','02','04','Chincha Baja'),
+	('110205','11','02','05','El Carmen'),
+	('110206','11','02','06','Grocio Prado'),
+	('110207','11','02','07','Pueblo Nuevo'),
+	('110208','11','02','08','San Juan de Yanac'),
+	('110209','11','02','09','San Pedro de Huacarpana'),
+	('110210','11','02','10','Sunampe'),
+	('110211','11','02','11','Tambo de Mora'),
+	('110300','11','03','00','Nazca'),
+	('110301','11','03','01','Nazca'),
+	('110302','11','03','02','Changuillo'),
+	('110303','11','03','03','El Ingenio'),
+	('110304','11','03','04','Marcona'),
+	('110305','11','03','05','Vista Alegre'),
+	('110400','11','04','00','Palpa'),
+	('110401','11','04','01','Palpa'),
+	('110402','11','04','02','Llipata'),
+	('110403','11','04','03','Rio Grande'),
+	('110404','11','04','04','Santa Cruz'),
+	('110405','11','04','05','Tibillo'),
+	('110500','11','05','00','Pisco'),
+	('110501','11','05','01','Pisco'),
+	('110502','11','05','02','Huancano'),
+	('110503','11','05','03','Humay'),
+	('110504','11','05','04','Independencia'),
+	('110505','11','05','05','Paracas'),
+	('110506','11','05','06','San Andres'),
+	('110507','11','05','07','San Clemente'),
+	('110508','11','05','08','Tupac Amaru Inca'),
+	('120000','12','00','00','Junin'),
+	('120100','12','01','00','Huancayo'),
+	('120101','12','01','01','Huancayo'),
+	('120104','12','01','04','Carhuacallanga'),
+	('120105','12','01','05','Chacapampa'),
+	('120106','12','01','06','Chicche'),
+	('120107','12','01','07','Chilca'),
+	('120108','12','01','08','Chongos Alto'),
+	('120111','12','01','11','Chupuro'),
+	('120112','12','01','12','Colca'),
+	('120113','12','01','13','Cullhuas'),
+	('120114','12','01','14','El Tambo'),
+	('120116','12','01','16','Huacrapuquio'),
+	('120117','12','01','17','Hualhuas'),
+	('120119','12','01','19','Huancan'),
+	('120120','12','01','20','Huasicancha'),
+	('120121','12','01','21','Huayucachi'),
+	('120122','12','01','22','Ingenio'),
+	('120124','12','01','24','Pariahuanca'),
+	('120125','12','01','25','Pilcomayo'),
+	('120126','12','01','26','Pucara'),
+	('120127','12','01','27','Quichuay'),
+	('120128','12','01','28','Quilcas'),
+	('120129','12','01','29','San Agustin'),
+	('120130','12','01','30','San Jeronimo de Tunan'),
+	('120132','12','01','32','Saño'),
+	('120133','12','01','33','Sapallanga'),
+	('120134','12','01','34','Sicaya'),
+	('120135','12','01','35','Santo Domingo de Acobamba'),
+	('120136','12','01','36','Viques'),
+	('120200','12','02','00','Concepcion'),
+	('120201','12','02','01','Concepcion'),
+	('120202','12','02','02','Aco'),
+	('120203','12','02','03','Andamarca'),
+	('120204','12','02','04','Chambara'),
+	('120205','12','02','05','Cochas'),
+	('120206','12','02','06','Comas'),
+	('120207','12','02','07','Heroinas Toledo'),
+	('120208','12','02','08','Manzanares'),
+	('120209','12','02','09','Mariscal Castilla'),
+	('120210','12','02','10','Matahuasi'),
+	('120211','12','02','11','Mito'),
+	('120212','12','02','12','Nueve de Julio'),
+	('120213','12','02','13','Orcotuna'),
+	('120214','12','02','14','San Jose de Quero'),
+	('120215','12','02','15','Santa Rosa de Ocopa'),
+	('120300','12','03','00','Chanchamayo'),
+	('120301','12','03','01','Chanchamayo'),
+	('120302','12','03','02','Perene'),
+	('120303','12','03','03','Pichanaqui'),
+	('120304','12','03','04','San Luis de Shuaro'),
+	('120305','12','03','05','San Ramon'),
+	('120306','12','03','06','Vitoc'),
+	('120400','12','04','00','Jauja'),
+	('120401','12','04','01','Jauja'),
+	('120402','12','04','02','Acolla'),
+	('120403','12','04','03','Apata'),
+	('120404','12','04','04','Ataura'),
+	('120405','12','04','05','Canchayllo'),
+	('120406','12','04','06','Curicaca'),
+	('120407','12','04','07','El Mantaro'),
+	('120408','12','04','08','Huamali'),
+	('120409','12','04','09','Huaripampa'),
+	('120410','12','04','10','Huertas'),
+	('120411','12','04','11','Janjaillo'),
+	('120412','12','04','12','Julcan'),
+	('120413','12','04','13','Leonor Ordoñez'),
+	('120414','12','04','14','Llocllapampa'),
+	('120415','12','04','15','Marco'),
+	('120416','12','04','16','Masma'),
+	('120417','12','04','17','Masma Chicche'),
+	('120418','12','04','18','Molinos'),
+	('120419','12','04','19','Monobamba'),
+	('120420','12','04','20','Muqui'),
+	('120421','12','04','21','Muquiyauyo'),
+	('120422','12','04','22','Paca'),
+	('120423','12','04','23','Paccha'),
+	('120424','12','04','24','Pancan'),
+	('120425','12','04','25','Parco'),
+	('120426','12','04','26','Pomacancha'),
+	('120427','12','04','27','Ricran'),
+	('120428','12','04','28','San Lorenzo'),
+	('120429','12','04','29','San Pedro de Chunan'),
+	('120430','12','04','30','Sausa'),
+	('120431','12','04','31','Sincos'),
+	('120432','12','04','32','Tunan Marca'),
+	('120433','12','04','33','Yauli'),
+	('120434','12','04','34','Yauyos'),
+	('120500','12','05','00','Junin'),
+	('120501','12','05','01','Junin'),
+	('120502','12','05','02','Carhuamayo'),
+	('120503','12','05','03','Ondores'),
+	('120504','12','05','04','Ulcumayo'),
+	('120600','12','06','00','Satipo'),
+	('120601','12','06','01','Satipo'),
+	('120602','12','06','02','Coviriali'),
+	('120603','12','06','03','Llaylla'),
+	('120604','12','06','04','Mazamari'),
+	('120605','12','06','05','Pampa Hermosa'),
+	('120606','12','06','06','Pangoa'),
+	('120607','12','06','07','Rio Negro'),
+	('120608','12','06','08','Rio Tambo'),
+	('120699','12','06','99','Mazamari-Pangoa'),
+	('120700','12','07','00','Tarma'),
+	('120701','12','07','01','Tarma'),
+	('120702','12','07','02','Acobamba'),
+	('120703','12','07','03','Huaricolca'),
+	('120704','12','07','04','Huasahuasi'),
+	('120705','12','07','05','La Union'),
+	('120706','12','07','06','Palca'),
+	('120707','12','07','07','Palcamayo'),
+	('120708','12','07','08','San Pedro de Cajas'),
+	('120709','12','07','09','Tapo'),
+	('120800','12','08','00','Yauli'),
+	('120801','12','08','01','La Oroya'),
+	('120802','12','08','02','Chacapalpa'),
+	('120803','12','08','03','Huay-Huay'),
+	('120804','12','08','04','Marcapomacocha'),
+	('120805','12','08','05','Morococha'),
+	('120806','12','08','06','Paccha'),
+	('120807','12','08','07','Santa Barbara de Carhuacayan'),
+	('120808','12','08','08','Santa Rosa de Sacco'),
+	('120809','12','08','09','Suitucancha'),
+	('120810','12','08','10','Yauli'),
+	('120900','12','09','00','Chupaca'),
+	('120901','12','09','01','Chupaca'),
+	('120902','12','09','02','Ahuac'),
+	('120903','12','09','03','Chongos Bajo'),
+	('120904','12','09','04','Huachac'),
+	('120905','12','09','05','Huamancaca Chico'),
+	('120906','12','09','06','San Juan de Iscos'),
+	('120907','12','09','07','San Juan de Jarpa'),
+	('120908','12','09','08','3 de Diciembre'),
+	('120909','12','09','09','Yanacancha'),
+	('130000','13','00','00','La Libertad'),
+	('130100','13','01','00','Trujillo'),
+	('130101','13','01','01','Trujillo'),
+	('130102','13','01','02','El Porvenir'),
+	('130103','13','01','03','Florencia de Mora'),
+	('130104','13','01','04','Huanchaco'),
+	('130105','13','01','05','La Esperanza'),
+	('130106','13','01','06','Laredo'),
+	('130107','13','01','07','Moche'),
+	('130108','13','01','08','Poroto'),
+	('130109','13','01','09','Salaverry'),
+	('130110','13','01','10','Simbal'),
+	('130111','13','01','11','Victor Larco Herrera'),
+	('130200','13','02','00','Ascope'),
+	('130201','13','02','01','Ascope'),
+	('130202','13','02','02','Chicama'),
+	('130203','13','02','03','Chocope'),
+	('130204','13','02','04','Magdalena de Cao'),
+	('130205','13','02','05','Paijan'),
+	('130206','13','02','06','Razuri'),
+	('130207','13','02','07','Santiago de Cao'),
+	('130208','13','02','08','Casa Grande'),
+	('130300','13','03','00','Bolivar'),
+	('130301','13','03','01','Bolivar'),
+	('130302','13','03','02','Bambamarca'),
+	('130303','13','03','03','Condormarca'),
+	('130304','13','03','04','Longotea'),
+	('130305','13','03','05','Uchumarca'),
+	('130306','13','03','06','Ucuncha'),
+	('130400','13','04','00','Chepen'),
+	('130401','13','04','01','Chepen'),
+	('130402','13','04','02','Pacanga'),
+	('130403','13','04','03','Pueblo Nuevo'),
+	('130500','13','05','00','Julcan'),
+	('130501','13','05','01','Julcan'),
+	('130502','13','05','02','Calamarca'),
+	('130503','13','05','03','Carabamba'),
+	('130504','13','05','04','Huaso'),
+	('130600','13','06','00','Otuzco'),
+	('130601','13','06','01','Otuzco'),
+	('130602','13','06','02','Agallpampa'),
+	('130604','13','06','04','Charat'),
+	('130605','13','06','05','Huaranchal'),
+	('130606','13','06','06','La Cuesta'),
+	('130608','13','06','08','Mache'),
+	('130610','13','06','10','Paranday'),
+	('130611','13','06','11','Salpo'),
+	('130613','13','06','13','Sinsicap'),
+	('130614','13','06','14','Usquil'),
+	('130700','13','07','00','Pacasmayo'),
+	('130701','13','07','01','San Pedro de Lloc'),
+	('130702','13','07','02','Guadalupe'),
+	('130703','13','07','03','Jequetepeque'),
+	('130704','13','07','04','Pacasmayo'),
+	('130705','13','07','05','San Jose'),
+	('130800','13','08','00','Pataz'),
+	('130801','13','08','01','Tayabamba'),
+	('130802','13','08','02','Buldibuyo'),
+	('130803','13','08','03','Chillia'),
+	('130804','13','08','04','Huancaspata'),
+	('130805','13','08','05','Huaylillas'),
+	('130806','13','08','06','Huayo'),
+	('130807','13','08','07','Ongon'),
+	('130808','13','08','08','Parcoy'),
+	('130809','13','08','09','Pataz'),
+	('130810','13','08','10','Pias'),
+	('130811','13','08','11','Santiago de Challas'),
+	('130812','13','08','12','Taurija'),
+	('130813','13','08','13','Urpay'),
+	('130900','13','09','00','Sanchez Carrion'),
+	('130901','13','09','01','Huamachuco'),
+	('130902','13','09','02','Chugay'),
+	('130903','13','09','03','Cochorco'),
+	('130904','13','09','04','Curgos'),
+	('130905','13','09','05','Marcabal'),
+	('130906','13','09','06','Sanagoran'),
+	('130907','13','09','07','Sarin'),
+	('130908','13','09','08','Sartimbamba'),
+	('131000','13','10','00','Santiago de Chuco'),
+	('131001','13','10','01','Santiago de Chuco'),
+	('131002','13','10','02','Angasmarca'),
+	('131003','13','10','03','Cachicadan'),
+	('131004','13','10','04','Mollebamba'),
+	('131005','13','10','05','Mollepata'),
+	('131006','13','10','06','Quiruvilca'),
+	('131007','13','10','07','Santa Cruz de Chuca'),
+	('131008','13','10','08','Sitabamba'),
+	('131100','13','11','00','Gran Chimu'),
+	('131101','13','11','01','Cascas'),
+	('131102','13','11','02','Lucma'),
+	('131103','13','11','03','Marmot'),
+	('131104','13','11','04','Sayapullo'),
+	('131200','13','12','00','Viru'),
+	('131201','13','12','01','Viru'),
+	('131202','13','12','02','Chao'),
+	('131203','13','12','03','Guadalupito'),
+	('140000','14','00','00','Lambayeque'),
+	('140100','14','01','00','Chiclayo'),
+	('140101','14','01','01','Chiclayo'),
+	('140102','14','01','02','Chongoyape'),
+	('140103','14','01','03','Eten'),
+	('140104','14','01','04','Eten Puerto'),
+	('140105','14','01','05','Jose Leonardo Ortiz'),
+	('140106','14','01','06','La Victoria'),
+	('140107','14','01','07','Lagunas'),
+	('140108','14','01','08','Monsefu'),
+	('140109','14','01','09','Nueva Arica'),
+	('140110','14','01','10','Oyotun'),
+	('140111','14','01','11','Picsi'),
+	('140112','14','01','12','Pimentel'),
+	('140113','14','01','13','Reque'),
+	('140114','14','01','14','Santa Rosa'),
+	('140115','14','01','15','Saña'),
+	('140116','14','01','16','Cayaltí'),
+	('140117','14','01','17','Patapo'),
+	('140118','14','01','18','Pomalca'),
+	('140119','14','01','19','Pucalá'),
+	('140120','14','01','20','Tumán'),
+	('140200','14','02','00','Ferreñafe'),
+	('140201','14','02','01','Ferreñafe'),
+	('140202','14','02','02','Cañaris'),
+	('140203','14','02','03','Incahuasi'),
+	('140204','14','02','04','Manuel Antonio Mesones Muro'),
+	('140205','14','02','05','Pitipo'),
+	('140206','14','02','06','Pueblo Nuevo'),
+	('140300','14','03','00','Lambayeque'),
+	('140301','14','03','01','Lambayeque'),
+	('140302','14','03','02','Chochope'),
+	('140303','14','03','03','Illimo'),
+	('140304','14','03','04','Jayanca'),
+	('140305','14','03','05','Mochumi'),
+	('140306','14','03','06','Morrope'),
+	('140307','14','03','07','Motupe'),
+	('140308','14','03','08','Olmos'),
+	('140309','14','03','09','Pacora'),
+	('140310','14','03','10','Salas'),
+	('140311','14','03','11','San Jose'),
+	('140312','14','03','12','Tucume'),
+	('150000','15','00','00','Lima'),
+	('150100','15','01','00','Lima'),
+	('150101','15','01','01','Lima'),
+	('150102','15','01','02','Ancon'),
+	('150103','15','01','03','Ate'),
+	('150104','15','01','04','Barranco'),
+	('150105','15','01','05','Breña'),
+	('150106','15','01','06','Carabayllo'),
+	('150107','15','01','07','Chaclacayo'),
+	('150108','15','01','08','Chorrillos'),
+	('150109','15','01','09','Cieneguilla'),
+	('150110','15','01','10','Comas'),
+	('150111','15','01','11','El Agustino'),
+	('150112','15','01','12','Independencia'),
+	('150113','15','01','13','Jesus Maria'),
+	('150114','15','01','14','La Molina'),
+	('150115','15','01','15','La Victoria'),
+	('150116','15','01','16','Lince'),
+	('150117','15','01','17','Los Olivos'),
+	('150118','15','01','18','Lurigancho'),
+	('150119','15','01','19','Lurin'),
+	('150120','15','01','20','Magdalena del Mar'),
+	('150121','15','01','21','Pueblo Libre (Magdalena Vieja)'),
+	('150122','15','01','22','Miraflores'),
+	('150123','15','01','23','Pachacamac'),
+	('150124','15','01','24','Pucusana'),
+	('150125','15','01','25','Puente Piedra'),
+	('150126','15','01','26','Punta Hermosa'),
+	('150127','15','01','27','Punta Negra'),
+	('150128','15','01','28','Rimac'),
+	('150129','15','01','29','San Bartolo'),
+	('150130','15','01','30','San Borja'),
+	('150131','15','01','31','San Isidro'),
+	('150132','15','01','32','San Juan de Lurigancho'),
+	('150133','15','01','33','San Juan de Miraflores'),
+	('150134','15','01','34','San Luis'),
+	('150135','15','01','35','San Martin de Porres'),
+	('150136','15','01','36','San Miguel'),
+	('150137','15','01','37','Santa Anita'),
+	('150138','15','01','38','Santa Maria del Mar'),
+	('150139','15','01','39','Santa Rosa'),
+	('150140','15','01','40','Santiago de Surco'),
+	('150141','15','01','41','Surquillo'),
+	('150142','15','01','42','Villa El Salvador'),
+	('150143','15','01','43','Villa Maria del Triunfo'),
+	('150200','15','02','00','Barranca'),
+	('150201','15','02','01','Barranca'),
+	('150202','15','02','02','Paramonga'),
+	('150203','15','02','03','Pativilca'),
+	('150204','15','02','04','Supe'),
+	('150205','15','02','05','Supe Puerto'),
+	('150300','15','03','00','Cajatambo'),
+	('150301','15','03','01','Cajatambo'),
+	('150302','15','03','02','Copa'),
+	('150303','15','03','03','Gorgor'),
+	('150304','15','03','04','Huancapon'),
+	('150305','15','03','05','Manas'),
+	('150400','15','04','00','Canta'),
+	('150401','15','04','01','Canta'),
+	('150402','15','04','02','Arahuay'),
+	('150403','15','04','03','Huamantanga'),
+	('150404','15','04','04','Huaros'),
+	('150405','15','04','05','Lachaqui'),
+	('150406','15','04','06','San Buenaventura'),
+	('150407','15','04','07','Santa Rosa de Quives'),
+	('150500','15','05','00','Cañete'),
+	('150501','15','05','01','San Vicente de Cañete'),
+	('150502','15','05','02','Asia'),
+	('150503','15','05','03','Calango'),
+	('150504','15','05','04','Cerro Azul'),
+	('150505','15','05','05','Chilca'),
+	('150506','15','05','06','Coayllo'),
+	('150507','15','05','07','Imperial'),
+	('150508','15','05','08','Lunahuana'),
+	('150509','15','05','09','Mala'),
+	('150510','15','05','10','Nuevo Imperial'),
+	('150511','15','05','11','Pacaran'),
+	('150512','15','05','12','Quilmana'),
+	('150513','15','05','13','San Antonio'),
+	('150514','15','05','14','San Luis'),
+	('150515','15','05','15','Santa Cruz de Flores'),
+	('150516','15','05','16','Zuñiga'),
+	('150600','15','06','00','Huaral'),
+	('150601','15','06','01','Huaral'),
+	('150602','15','06','02','Atavillos Alto'),
+	('150603','15','06','03','Atavillos Bajo'),
+	('150604','15','06','04','Aucallama'),
+	('150605','15','06','05','Chancay'),
+	('150606','15','06','06','Ihuari'),
+	('150607','15','06','07','Lampian'),
+	('150608','15','06','08','Pacaraos'),
+	('150609','15','06','09','San Miguel de Acos'),
+	('150610','15','06','10','Santa Cruz de Andamarca'),
+	('150611','15','06','11','Sumbilca'),
+	('150612','15','06','12','Veintisiete de Noviembre'),
+	('150700','15','07','00','Huarochiri'),
+	('150701','15','07','01','Matucana'),
+	('150702','15','07','02','Antioquia'),
+	('150703','15','07','03','Callahuanca'),
+	('150704','15','07','04','Carampoma'),
+	('150705','15','07','05','Chicla'),
+	('150706','15','07','06','Cuenca'),
+	('150707','15','07','07','Huachupampa'),
+	('150708','15','07','08','Huanza'),
+	('150709','15','07','09','Huarochiri'),
+	('150710','15','07','10','Lahuaytambo'),
+	('150711','15','07','11','Langa'),
+	('150712','15','07','12','Laraos'),
+	('150713','15','07','13','Mariatana'),
+	('150714','15','07','14','Ricardo Palma'),
+	('150715','15','07','15','San Andres de Tupicocha'),
+	('150716','15','07','16','San Antonio'),
+	('150717','15','07','17','San Bartolome'),
+	('150718','15','07','18','San Damian'),
+	('150719','15','07','19','San Juan de Iris'),
+	('150720','15','07','20','San Juan de Tantaranche'),
+	('150721','15','07','21','San Lorenzo de Quinti'),
+	('150722','15','07','22','San Mateo'),
+	('150723','15','07','23','San Mateo de Otao'),
+	('150724','15','07','24','San Pedro de Casta'),
+	('150725','15','07','25','San Pedro de Huancayre'),
+	('150726','15','07','26','Sangallaya'),
+	('150727','15','07','27','Santa Cruz de Cocachacra'),
+	('150728','15','07','28','Santa Eulalia'),
+	('150729','15','07','29','Santiago de Anchucaya'),
+	('150730','15','07','30','Santiago de Tuna'),
+	('150731','15','07','31','Santo Domingo de los Olleros'),
+	('150732','15','07','32','Surco'),
+	('150800','15','08','00','Huaura'),
+	('150801','15','08','01','Huacho'),
+	('150802','15','08','02','Ambar'),
+	('150803','15','08','03','Caleta de Carquin'),
+	('150804','15','08','04','Checras'),
+	('150805','15','08','05','Hualmay'),
+	('150806','15','08','06','Huaura'),
+	('150807','15','08','07','Leoncio Prado'),
+	('150808','15','08','08','Paccho'),
+	('150809','15','08','09','Santa Leonor'),
+	('150810','15','08','10','Santa Maria'),
+	('150811','15','08','11','Sayan'),
+	('150812','15','08','12','Vegueta'),
+	('150900','15','09','00','Oyon'),
+	('150901','15','09','01','Oyon'),
+	('150902','15','09','02','Andajes'),
+	('150903','15','09','03','Caujul'),
+	('150904','15','09','04','Cochamarca'),
+	('150905','15','09','05','Navan'),
+	('150906','15','09','06','Pachangara'),
+	('151000','15','10','00','Yauyos'),
+	('151001','15','10','01','Yauyos'),
+	('151002','15','10','02','Alis'),
+	('151003','15','10','03','Ayauca'),
+	('151004','15','10','04','Ayaviri'),
+	('151005','15','10','05','Azangaro'),
+	('151006','15','10','06','Cacra'),
+	('151007','15','10','07','Carania'),
+	('151008','15','10','08','Catahuasi'),
+	('151009','15','10','09','Chocos'),
+	('151010','15','10','10','Cochas'),
+	('151011','15','10','11','Colonia'),
+	('151012','15','10','12','Hongos'),
+	('151013','15','10','13','Huampara'),
+	('151014','15','10','14','Huancaya'),
+	('151015','15','10','15','Huangascar'),
+	('151016','15','10','16','Huantan'),
+	('151017','15','10','17','Huañec'),
+	('151018','15','10','18','Laraos'),
+	('151019','15','10','19','Lincha'),
+	('151020','15','10','20','Madean'),
+	('151021','15','10','21','Miraflores'),
+	('151022','15','10','22','Omas'),
+	('151023','15','10','23','Putinza'),
+	('151024','15','10','24','Quinches'),
+	('151025','15','10','25','Quinocay'),
+	('151026','15','10','26','San Joaquin'),
+	('151027','15','10','27','San Pedro de Pilas'),
+	('151028','15','10','28','Tanta'),
+	('151029','15','10','29','Tauripampa'),
+	('151030','15','10','30','Tomas'),
+	('151031','15','10','31','Tupe'),
+	('151032','15','10','32','Viñac'),
+	('151033','15','10','33','Vitis'),
+	('160000','16','00','00','Loreto'),
+	('160100','16','01','00','Maynas'),
+	('160101','16','01','01','Iquitos'),
+	('160102','16','01','02','Alto Nanay'),
+	('160103','16','01','03','Fernando Lores'),
+	('160104','16','01','04','Indiana'),
+	('160105','16','01','05','Las Amazonas'),
+	('160106','16','01','06','Mazan'),
+	('160107','16','01','07','Napo'),
+	('160108','16','01','08','Punchana'),
+	('160109','16','01','09','Putumayo'),
+	('160110','16','01','10','Torres Causana'),
+	('160112','16','01','12','Belén'),
+	('160113','16','01','13','San Juan Bautista'),
+	('160114','16','01','14','Teniente Manuel Clavero'),
+	('160200','16','02','00','Alto Amazonas'),
+	('160201','16','02','01','Yurimaguas'),
+	('160202','16','02','02','Balsapuerto'),
+	('160205','16','02','05','Jeberos'),
+	('160206','16','02','06','Lagunas'),
+	('160210','16','02','10','Santa Cruz'),
+	('160211','16','02','11','Teniente Cesar Lopez Rojas'),
+	('160300','16','03','00','Loreto'),
+	('160301','16','03','01','Nauta'),
+	('160302','16','03','02','Parinari'),
+	('160303','16','03','03','Tigre'),
+	('160304','16','03','04','Trompeteros'),
+	('160305','16','03','05','Urarinas'),
+	('160400','16','04','00','Mariscal Ramon Castilla'),
+	('160401','16','04','01','Ramon Castilla'),
+	('160402','16','04','02','Pebas'),
+	('160403','16','04','03','Yavari'),
+	('160404','16','04','04','San Pablo'),
+	('160500','16','05','00','Requena'),
+	('160501','16','05','01','Requena'),
+	('160502','16','05','02','Alto Tapiche'),
+	('160503','16','05','03','Capelo'),
+	('160504','16','05','04','Emilio San Martin'),
+	('160505','16','05','05','Maquia'),
+	('160506','16','05','06','Puinahua'),
+	('160507','16','05','07','Saquena'),
+	('160508','16','05','08','Soplin'),
+	('160509','16','05','09','Tapiche'),
+	('160510','16','05','10','Jenaro Herrera'),
+	('160511','16','05','11','Yaquerana'),
+	('160600','16','06','00','Ucayali'),
+	('160601','16','06','01','Contamana'),
+	('160602','16','06','02','Inahuaya'),
+	('160603','16','06','03','Padre Marquez'),
+	('160604','16','06','04','Pampa Hermosa'),
+	('160605','16','06','05','Sarayacu'),
+	('160606','16','06','06','Vargas Guerra'),
+	('160700','16','07','00','Datem del Marañón'),
+	('160701','16','07','01','Barranca'),
+	('160702','16','07','02','Cahuapanas'),
+	('160703','16','07','03','Manseriche'),
+	('160704','16','07','04','Morona'),
+	('160705','16','07','05','Pastaza'),
+	('160706','16','07','06','Andoas'),
+	('160800','16','08','00','Putumayo'),
+	('160801','16','08','01','Putumayo'),
+	('160802','16','08','02','Rosa Panduro'),
+	('160803','16','08','03','Teniente Manuel Clavero'),
+	('160804','16','08','04','Yaguas'),
+	('170000','17','00','00','Madre de Dios'),
+	('170100','17','01','00','Tambopata'),
+	('170101','17','01','01','Tambopata'),
+	('170102','17','01','02','Inambari'),
+	('170103','17','01','03','Las Piedras'),
+	('170104','17','01','04','Laberinto'),
+	('170200','17','02','00','Manu'),
+	('170201','17','02','01','Manu'),
+	('170202','17','02','02','Fitzcarrald'),
+	('170203','17','02','03','Madre de Dios'),
+	('170204','17','02','04','Huepetuhe'),
+	('170300','17','03','00','Tahuamanu'),
+	('170301','17','03','01','Iñapari'),
+	('170302','17','03','02','Iberia'),
+	('170303','17','03','03','Tahuamanu'),
+	('180000','18','00','00','Moquegua'),
+	('180100','18','01','00','Mariscal Nieto'),
+	('180101','18','01','01','Moquegua'),
+	('180102','18','01','02','Carumas'),
+	('180103','18','01','03','Cuchumbaya'),
+	('180104','18','01','04','Samegua'),
+	('180105','18','01','05','San Cristobal'),
+	('180106','18','01','06','Torata'),
+	('180200','18','02','00','General Sanchez Cerro'),
+	('180201','18','02','01','Omate'),
+	('180202','18','02','02','Chojata'),
+	('180203','18','02','03','Coalaque'),
+	('180204','18','02','04','Ichuña'),
+	('180205','18','02','05','La Capilla'),
+	('180206','18','02','06','Lloque'),
+	('180207','18','02','07','Matalaque'),
+	('180208','18','02','08','Puquina'),
+	('180209','18','02','09','Quinistaquillas'),
+	('180210','18','02','10','Ubinas'),
+	('180211','18','02','11','Yunga'),
+	('180300','18','03','00','Ilo'),
+	('180301','18','03','01','Ilo'),
+	('180302','18','03','02','El Algarrobal'),
+	('180303','18','03','03','Pacocha'),
+	('190000','19','00','00','Pasco'),
+	('190100','19','01','00','Pasco'),
+	('190101','19','01','01','Chaupimarca'),
+	('190102','19','01','02','Huachon'),
+	('190103','19','01','03','Huariaca'),
+	('190104','19','01','04','Huayllay'),
+	('190105','19','01','05','Ninacaca'),
+	('190106','19','01','06','Pallanchacra'),
+	('190107','19','01','07','Paucartambo'),
+	('190108','19','01','08','San Fco. de Asís de Yarusyacán'),
+	('190109','19','01','09','Simon Bolivar'),
+	('190110','19','01','10','Ticlacayan'),
+	('190111','19','01','11','Tinyahuarco'),
+	('190112','19','01','12','Vicco'),
+	('190113','19','01','13','Yanacancha'),
+	('190200','19','02','00','Daniel Alcides Carrion'),
+	('190201','19','02','01','Yanahuanca'),
+	('190202','19','02','02','Chacayan'),
+	('190203','19','02','03','Goyllarisquizga'),
+	('190204','19','02','04','Paucar'),
+	('190205','19','02','05','San Pedro de Pillao'),
+	('190206','19','02','06','Santa Ana de Tusi'),
+	('190207','19','02','07','Tapuc'),
+	('190208','19','02','08','Vilcabamba'),
+	('190300','19','03','00','Oxapampa'),
+	('190301','19','03','01','Oxapampa'),
+	('190302','19','03','02','Chontabamba'),
+	('190303','19','03','03','Huancabamba'),
+	('190304','19','03','04','Palcazu'),
+	('190305','19','03','05','Pozuzo'),
+	('190306','19','03','06','Puerto Bermudez'),
+	('190307','19','03','07','Villa Rica'),
+	('190308','19','03','08','Constitucion'),
+	('200000','20','00','00','Piura'),
+	('200100','20','01','00','Piura'),
+	('200101','20','01','01','Piura'),
+	('200104','20','01','04','Castilla'),
+	('200105','20','01','05','Catacaos'),
+	('200107','20','01','07','Cura Mori'),
+	('200108','20','01','08','El Tallan'),
+	('200109','20','01','09','La Arena'),
+	('200110','20','01','10','La Union'),
+	('200111','20','01','11','Las Lomas'),
+	('200114','20','01','14','Tambo Grande'),
+	('200115','20','01','15','Veintiséis de Octubre'),
+	('200200','20','02','00','Ayabaca'),
+	('200201','20','02','01','Ayabaca'),
+	('200202','20','02','02','Frias'),
+	('200203','20','02','03','Jilili'),
+	('200204','20','02','04','Lagunas'),
+	('200205','20','02','05','Montero'),
+	('200206','20','02','06','Pacaipampa'),
+	('200207','20','02','07','Paimas'),
+	('200208','20','02','08','Sapillica'),
+	('200209','20','02','09','Sicchez'),
+	('200210','20','02','10','Suyo'),
+	('200300','20','03','00','Huancabamba'),
+	('200301','20','03','01','Huancabamba'),
+	('200302','20','03','02','Canchaque'),
+	('200303','20','03','03','El Carmen de la Frontera'),
+	('200304','20','03','04','Huarmaca'),
+	('200305','20','03','05','Lalaquiz'),
+	('200306','20','03','06','San Miguel de El Faique'),
+	('200307','20','03','07','Sondor'),
+	('200308','20','03','08','Sondorillo'),
+	('200400','20','04','00','Morropon'),
+	('200401','20','04','01','Chulucanas'),
+	('200402','20','04','02','Buenos Aires'),
+	('200403','20','04','03','Chalaco'),
+	('200404','20','04','04','La Matanza'),
+	('200405','20','04','05','Morropon'),
+	('200406','20','04','06','Salitral'),
+	('200407','20','04','07','San Juan de Bigote'),
+	('200408','20','04','08','Santa Catalina de Mossa'),
+	('200409','20','04','09','Santo Domingo'),
+	('200410','20','04','10','Yamango'),
+	('200500','20','05','00','Paita'),
+	('200501','20','05','01','Paita'),
+	('200502','20','05','02','Amotape'),
+	('200503','20','05','03','Arenal'),
+	('200504','20','05','04','Colan'),
+	('200505','20','05','05','La Huaca'),
+	('200506','20','05','06','Tamarindo'),
+	('200507','20','05','07','Vichayal'),
+	('200600','20','06','00','Sullana'),
+	('200601','20','06','01','Sullana'),
+	('200602','20','06','02','Bellavista'),
+	('200603','20','06','03','Ignacio Escudero'),
+	('200604','20','06','04','Lancones'),
+	('200605','20','06','05','Marcavelica'),
+	('200606','20','06','06','Miguel Checa'),
+	('200607','20','06','07','Querecotillo'),
+	('200608','20','06','08','Salitral'),
+	('200700','20','07','00','Talara'),
+	('200701','20','07','01','Pariñas'),
+	('200702','20','07','02','El Alto'),
+	('200703','20','07','03','La Brea'),
+	('200704','20','07','04','Lobitos'),
+	('200705','20','07','05','Los Organos'),
+	('200706','20','07','06','Mancora'),
+	('200800','20','08','00','Sechura'),
+	('200801','20','08','01','Sechura'),
+	('200802','20','08','02','Bellavista de la Union'),
+	('200803','20','08','03','Bernal'),
+	('200804','20','08','04','Cristo Nos Valga'),
+	('200805','20','08','05','Vice'),
+	('200806','20','08','06','Rinconada Llicuar'),
+	('210000','21','00','00','Puno'),
+	('210100','21','01','00','Puno'),
+	('210101','21','01','01','Puno'),
+	('210102','21','01','02','Acora'),
+	('210103','21','01','03','Amantani'),
+	('210104','21','01','04','Atuncolla'),
+	('210105','21','01','05','Capachica'),
+	('210106','21','01','06','Chucuito'),
+	('210107','21','01','07','Coata'),
+	('210108','21','01','08','Huata'),
+	('210109','21','01','09','Mañazo'),
+	('210110','21','01','10','Paucarcolla'),
+	('210111','21','01','11','Pichacani'),
+	('210112','21','01','12','Plateria'),
+	('210113','21','01','13','San Antonio'),
+	('210114','21','01','14','Tiquillaca'),
+	('210115','21','01','15','Vilque'),
+	('210200','21','02','00','Azangaro'),
+	('210201','21','02','01','Azangaro'),
+	('210202','21','02','02','Achaya'),
+	('210203','21','02','03','Arapa'),
+	('210204','21','02','04','Asillo'),
+	('210205','21','02','05','Caminaca'),
+	('210206','21','02','06','Chupa'),
+	('210207','21','02','07','Jose Domingo Choquehuanca'),
+	('210208','21','02','08','Muñani'),
+	('210209','21','02','09','Potoni'),
+	('210210','21','02','10','Saman'),
+	('210211','21','02','11','San Anton'),
+	('210212','21','02','12','San Jose'),
+	('210213','21','02','13','San Juan de Salinas'),
+	('210214','21','02','14','Santiago de Pupuja'),
+	('210215','21','02','15','Tirapata'),
+	('210300','21','03','00','Carabaya'),
+	('210301','21','03','01','Macusani'),
+	('210302','21','03','02','Ajoyani'),
+	('210303','21','03','03','Ayapata'),
+	('210304','21','03','04','Coasa'),
+	('210305','21','03','05','Corani'),
+	('210306','21','03','06','Crucero'),
+	('210307','21','03','07','Ituata'),
+	('210308','21','03','08','Ollachea'),
+	('210309','21','03','09','San Gaban'),
+	('210310','21','03','10','Usicayos'),
+	('210400','21','04','00','Chucuito'),
+	('210401','21','04','01','Juli'),
+	('210402','21','04','02','Desaguadero'),
+	('210403','21','04','03','Huacullani'),
+	('210404','21','04','04','Kelluyo'),
+	('210405','21','04','05','Pisacoma'),
+	('210406','21','04','06','Pomata'),
+	('210407','21','04','07','Zepita'),
+	('210500','21','05','00','El Collao'),
+	('210501','21','05','01','Ilave'),
+	('210502','21','05','02','Capaso'),
+	('210503','21','05','03','Pilcuyo'),
+	('210504','21','05','04','Santa Rosa'),
+	('210505','21','05','05','Conduriri'),
+	('210600','21','06','00','Huancane'),
+	('210601','21','06','01','Huancane'),
+	('210602','21','06','02','Cojata'),
+	('210603','21','06','03','Huatasani'),
+	('210604','21','06','04','Inchupalla'),
+	('210605','21','06','05','Pusi'),
+	('210606','21','06','06','Rosaspata'),
+	('210607','21','06','07','Taraco'),
+	('210608','21','06','08','Vilque Chico'),
+	('210700','21','07','00','Lampa'),
+	('210701','21','07','01','Lampa'),
+	('210702','21','07','02','Cabanilla'),
+	('210703','21','07','03','Calapuja'),
+	('210704','21','07','04','Nicasio'),
+	('210705','21','07','05','Ocuviri'),
+	('210706','21','07','06','Palca'),
+	('210707','21','07','07','Paratia'),
+	('210708','21','07','08','Pucara'),
+	('210709','21','07','09','Santa Lucia'),
+	('210710','21','07','10','Vilavila'),
+	('210800','21','08','00','Melgar'),
+	('210801','21','08','01','Ayaviri'),
+	('210802','21','08','02','Antauta'),
+	('210803','21','08','03','Cupi'),
+	('210804','21','08','04','Llalli'),
+	('210805','21','08','05','Macari'),
+	('210806','21','08','06','Nuñoa'),
+	('210807','21','08','07','Orurillo'),
+	('210808','21','08','08','Santa Rosa'),
+	('210809','21','08','09','Umachiri'),
+	('210900','21','09','00','Moho'),
+	('210901','21','09','01','Moho'),
+	('210902','21','09','02','Conima'),
+	('210903','21','09','03','Huayrapata'),
+	('210904','21','09','04','Tilali'),
+	('211000','21','10','00','San Antonio de Putina'),
+	('211001','21','10','01','Putina'),
+	('211002','21','10','02','Ananea'),
+	('211003','21','10','03','Pedro Vilca Apaza'),
+	('211004','21','10','04','Quilcapuncu'),
+	('211005','21','10','05','Sina'),
+	('211100','21','11','00','San Roman'),
+	('211101','21','11','01','Juliaca'),
+	('211102','21','11','02','Cabana'),
+	('211103','21','11','03','Cabanillas'),
+	('211104','21','11','04','Caracoto'),
+	('211200','21','12','00','Sandia'),
+	('211201','21','12','01','Sandia'),
+	('211202','21','12','02','Cuyocuyo'),
+	('211203','21','12','03','Limbani'),
+	('211204','21','12','04','Patambuco'),
+	('211205','21','12','05','Phara'),
+	('211206','21','12','06','Quiaca'),
+	('211207','21','12','07','San Juan del Oro'),
+	('211208','21','12','08','Yanahuaya'),
+	('211209','21','12','09','Alto Inambari'),
+	('211210','21','12','10','San Pedro de Putina Punco'),
+	('211300','21','13','00','Yunguyo'),
+	('211301','21','13','01','Yunguyo'),
+	('211302','21','13','02','Anapia'),
+	('211303','21','13','03','Copani'),
+	('211304','21','13','04','Cuturapi'),
+	('211305','21','13','05','Ollaraya'),
+	('211306','21','13','06','Tinicachi'),
+	('211307','21','13','07','Unicachi'),
+	('220000','22','00','00','San Martin'),
+	('220100','22','01','00','Moyobamba'),
+	('220101','22','01','01','Moyobamba'),
+	('220102','22','01','02','Calzada'),
+	('220103','22','01','03','Habana'),
+	('220104','22','01','04','Jepelacio'),
+	('220105','22','01','05','Soritor'),
+	('220106','22','01','06','Yantalo'),
+	('220200','22','02','00','Bellavista'),
+	('220201','22','02','01','Bellavista'),
+	('220202','22','02','02','Alto Biavo'),
+	('220203','22','02','03','Bajo Biavo'),
+	('220204','22','02','04','Huallaga'),
+	('220205','22','02','05','San Pablo'),
+	('220206','22','02','06','San Rafael'),
+	('220300','22','03','00','El Dorado'),
+	('220301','22','03','01','San Jose de Sisa'),
+	('220302','22','03','02','Agua Blanca'),
+	('220303','22','03','03','San Martin'),
+	('220304','22','03','04','Santa Rosa'),
+	('220305','22','03','05','Shatoja'),
+	('220400','22','04','00','Huallaga'),
+	('220401','22','04','01','Saposoa'),
+	('220402','22','04','02','Alto Saposoa'),
+	('220403','22','04','03','El Eslabon'),
+	('220404','22','04','04','Piscoyacu'),
+	('220405','22','04','05','Sacanche'),
+	('220406','22','04','06','Tingo de Saposoa'),
+	('220500','22','05','00','Lamas'),
+	('220501','22','05','01','Lamas'),
+	('220502','22','05','02','Alonso de Alvarado'),
+	('220503','22','05','03','Barranquita'),
+	('220504','22','05','04','Caynarachi'),
+	('220505','22','05','05','Cuñumbuqui'),
+	('220506','22','05','06','Pinto Recodo'),
+	('220507','22','05','07','Rumisapa'),
+	('220508','22','05','08','San Roque de Cumbaza'),
+	('220509','22','05','09','Shanao'),
+	('220510','22','05','10','Tabalosos'),
+	('220511','22','05','11','Zapatero'),
+	('220600','22','06','00','Mariscal Caceres'),
+	('220601','22','06','01','Juanjui'),
+	('220602','22','06','02','Campanilla'),
+	('220603','22','06','03','Huicungo'),
+	('220604','22','06','04','Pachiza'),
+	('220605','22','06','05','Pajarillo'),
+	('220700','22','07','00','Picota'),
+	('220701','22','07','01','Picota'),
+	('220702','22','07','02','Buenos Aires'),
+	('220703','22','07','03','Caspisapa'),
+	('220704','22','07','04','Pilluana'),
+	('220705','22','07','05','Pucacaca'),
+	('220706','22','07','06','San Cristobal'),
+	('220707','22','07','07','San Hilarion'),
+	('220708','22','07','08','Shamboyacu'),
+	('220709','22','07','09','Tingo de Ponasa'),
+	('220710','22','07','10','Tres Unidos'),
+	('220800','22','08','00','Rioja'),
+	('220801','22','08','01','Rioja'),
+	('220802','22','08','02','Awajun'),
+	('220803','22','08','03','Elias Soplin Vargas'),
+	('220804','22','08','04','Nueva Cajamarca'),
+	('220805','22','08','05','Pardo Miguel'),
+	('220806','22','08','06','Posic'),
+	('220807','22','08','07','San Fernando'),
+	('220808','22','08','08','Yorongos'),
+	('220809','22','08','09','Yuracyacu'),
+	('220900','22','09','00','San Martin'),
+	('220901','22','09','01','Tarapoto'),
+	('220902','22','09','02','Alberto Leveau'),
+	('220903','22','09','03','Cacatachi'),
+	('220904','22','09','04','Chazuta'),
+	('220905','22','09','05','Chipurana'),
+	('220906','22','09','06','El Porvenir'),
+	('220907','22','09','07','Huimbayoc'),
+	('220908','22','09','08','Juan Guerra'),
+	('220909','22','09','09','La Banda de Shilcayo'),
+	('220910','22','09','10','Morales'),
+	('220911','22','09','11','Papaplaya'),
+	('220912','22','09','12','San Antonio'),
+	('220913','22','09','13','Sauce'),
+	('220914','22','09','14','Shapaja'),
+	('221000','22','10','00','Tocache'),
+	('221001','22','10','01','Tocache'),
+	('221002','22','10','02','Nuevo Progreso'),
+	('221003','22','10','03','Polvora'),
+	('221004','22','10','04','Shunte'),
+	('221005','22','10','05','Uchiza'),
+	('230000','23','00','00','Tacna'),
+	('230100','23','01','00','Tacna'),
+	('230101','23','01','01','Tacna'),
+	('230102','23','01','02','Alto de la Alianza'),
+	('230103','23','01','03','Calana'),
+	('230104','23','01','04','Ciudad Nueva'),
+	('230105','23','01','05','Inclan'),
+	('230106','23','01','06','Pachia'),
+	('230107','23','01','07','Palca'),
+	('230108','23','01','08','Pocollay'),
+	('230109','23','01','09','Sama'),
+	('230110','23','01','10','Coronel Gregorio Albarracín L'),
+	('230200','23','02','00','Candarave'),
+	('230201','23','02','01','Candarave'),
+	('230202','23','02','02','Cairani'),
+	('230203','23','02','03','Camilaca'),
+	('230204','23','02','04','Curibaya'),
+	('230205','23','02','05','Huanuara'),
+	('230206','23','02','06','Quilahuani'),
+	('230300','23','03','00','Jorge Basadre'),
+	('230301','23','03','01','Locumba'),
+	('230302','23','03','02','Ilabaya'),
+	('230303','23','03','03','Ite'),
+	('230400','23','04','00','Tarata'),
+	('230401','23','04','01','Tarata'),
+	('230402','23','04','02','Chucatamani'),
+	('230403','23','04','03','Estique'),
+	('230404','23','04','04','Estique-Pampa'),
+	('230405','23','04','05','Sitajara'),
+	('230406','23','04','06','Susapaya'),
+	('230407','23','04','07','Tarucachi'),
+	('230408','23','04','08','Ticaco'),
+	('240000','24','00','00','Tumbes'),
+	('240100','24','01','00','Tumbes'),
+	('240101','24','01','01','Tumbes'),
+	('240102','24','01','02','Corrales'),
+	('240103','24','01','03','La Cruz'),
+	('240104','24','01','04','Pampas de Hospital'),
+	('240105','24','01','05','San Jacinto'),
+	('240106','24','01','06','San Juan de la Virgen'),
+	('240200','24','02','00','Contralmirante Villar'),
+	('240201','24','02','01','Zorritos'),
+	('240202','24','02','02','Casitas'),
+	('240203','24','02','03','Canoas de Punta Sal'),
+	('240300','24','03','00','Zarumilla'),
+	('240301','24','03','01','Zarumilla'),
+	('240302','24','03','02','Aguas Verdes'),
+	('240303','24','03','03','Matapalo'),
+	('240304','24','03','04','Papayal'),
+	('250000','25','00','00','Ucayali'),
+	('250100','25','01','00','Coronel Portillo'),
+	('250101','25','01','01','Callaria'),
+	('250102','25','01','02','Campoverde'),
+	('250103','25','01','03','Iparia'),
+	('250104','25','01','04','Masisea'),
+	('250105','25','01','05','Yarinacocha'),
+	('250106','25','01','06','Nueva Requena'),
+	('250107','25','01','07','Manantay'),
+	('250200','25','02','00','Atalaya'),
+	('250201','25','02','01','Raymondi'),
+	('250202','25','02','02','Sepahua'),
+	('250203','25','02','03','Tahuania'),
+	('250204','25','02','04','Yurua'),
+	('250300','25','03','00','Padre Abad'),
+	('250301','25','03','01','Padre Abad'),
+	('250302','25','03','02','Irazola'),
+	('250303','25','03','03','Curimana'),
+	('250400','25','04','00','Purus'),
+	('250401','25','04','01','Purus'),
+	('990000','99','00','00','Extranjero'),
+	('999900','99','99','00','Extranjero'),
+	('999999','99','99','99','Extranjero');
 
 /*!40000 ALTER TABLE `Ubigeo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table urbanizacion
+# Dump of table Urbanizacion
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `urbanizacion`;
+DROP TABLE IF EXISTS `Urbanizacion`;
 
-CREATE TABLE `urbanizacion` (
-  `codigo` varchar(255) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `Urbanizacion` (
+  `Codigo` varchar(2) NOT NULL,
+  `Descripcion` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `urbanizacion` WRITE;
-/*!40000 ALTER TABLE `urbanizacion` DISABLE KEYS */;
+LOCK TABLES `Urbanizacion` WRITE;
+/*!40000 ALTER TABLE `Urbanizacion` DISABLE KEYS */;
 
-INSERT INTO `urbanizacion` (`codigo`, `descripcion`)
+INSERT INTO `Urbanizacion` (`Codigo`, `Descripcion`)
 VALUES
 	('AG','AGRUPACIÓN'),
 	('AH','ASENTAMIENTO HUMANO'),
@@ -2455,36 +3538,65 @@ VALUES
 	('UB','URBANIZACIÓN'),
 	('UV','UNIDAD VECINAL');
 
-/*!40000 ALTER TABLE `urbanizacion` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Urbanizacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table usuarios
+# Dump of table usuario_role
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `usuarios`;
+DROP TABLE IF EXISTS `usuario_role`;
 
-CREATE TABLE `usuarios` (
-  `cod_usuario` varchar(255) NOT NULL,
-  `active` bit(1) NOT NULL,
-  `fecha_ingreso` date DEFAULT NULL,
-  `grupo_menus` varchar(255) DEFAULT NULL,
-  `id_role` varchar(255) NOT NULL,
-  `menu_inicial` int(11) DEFAULT NULL,
-  `nom_usuario` varchar(255) DEFAULT NULL,
-  `password_usuario` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`cod_usuario`)
+CREATE TABLE `usuario_role` (
+  `User_Id` int(10) NOT NULL,
+  `Role_Id` int(10) NOT NULL,
+  PRIMARY KEY (`User_Id`,`Role_Id`),
+  KEY `FKbago1u8l776dyvwcjqhfxt9fn` (`Role_Id`),
+  CONSTRAINT `FKbago1u8l776dyvwcjqhfxt9fn` FOREIGN KEY (`Role_Id`) REFERENCES `Role` (`Id`),
+  CONSTRAINT `FKc91v2fc2iayocjd1imy3os43w` FOREIGN KEY (`User_Id`) REFERENCES `usuarios` (`Id`),
+  CONSTRAINT `FKe7gfguqsiox6p89xggm8g2twf` FOREIGN KEY (`Role_Id`) REFERENCES `role` (`Id`),
+  CONSTRAINT `FKth6eco8cte67kah9aqf1u0uk5` FOREIGN KEY (`User_Id`) REFERENCES `Usuarios` (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `usuarios` WRITE;
-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+LOCK TABLES `usuario_role` WRITE;
+/*!40000 ALTER TABLE `usuario_role` DISABLE KEYS */;
 
-INSERT INTO `usuarios` (`cod_usuario`, `active`, `fecha_ingreso`, `grupo_menus`, `id_role`, `menu_inicial`, `nom_usuario`, `password_usuario`)
+INSERT INTO `usuario_role` (`User_Id`, `Role_Id`)
 VALUES
-	('joe',b'1','2020-02-01','1, 3, 4','ADMINISTRADOR',1,'Jose Diaz','$2a$10$wT/obdcvI07jSor8roN3NeuWhEdlarvunJ14ZOAFdo1g/lZ1uHbGe'),
-	('miryan',b'1','2020-02-01','1, 2, 3, 4','OPERADOR',1,'Miryan Ramirez','$2a$10$wT/obdcvI07jSor8roN3NeuWhEdlarvunJ14ZOAFdo1g/lZ1uHbGe');
+	(1,1),
+	(2,2),
+	(3,3);
 
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+/*!40000 ALTER TABLE `usuario_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table Usuarios
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Usuarios`;
+
+CREATE TABLE `Usuarios` (
+  `Id` int(10) NOT NULL AUTO_INCREMENT,
+  `Cod_Usuario` varchar(10) NOT NULL,
+  `Nom_Usuario` varchar(30) DEFAULT NULL,
+  `Password_Usuario` varchar(255) DEFAULT NULL,
+  `Fecha_Ingreso` date DEFAULT NULL,
+  `Grupo_Menus` varchar(30) DEFAULT NULL,
+  `Active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `Usuarios` WRITE;
+/*!40000 ALTER TABLE `Usuarios` DISABLE KEYS */;
+
+INSERT INTO `Usuarios` (`Id`, `Cod_Usuario`, `Nom_Usuario`, `Password_Usuario`, `Fecha_Ingreso`, `Grupo_Menus`, `Active`)
+VALUES
+	(1,'aJose','Jose Diaz','$2a$04$5sT3dri6bOOG2b9P1LETEujUeYMR46G/OVybuBjxBAohlEtDsxmi2','2020-04-01','1,2,3,4',1),
+	(2,'aPadilla','Alfonso Padilla','$2a$04$5sT3dri6bOOG2b9P1LETEujUeYMR46G/OVybuBjxBAohlEtDsxmi2','2020-02-01','1,2,3,4',1),
+	(3,'aSoriano','Alejandra Soriano','$2a$04$5sT3dri6bOOG2b9P1LETEujUeYMR46G/OVybuBjxBAohlEtDsxmi2','2020-02-01','1,2,3,4',1);
+
+/*!40000 ALTER TABLE `Usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
 

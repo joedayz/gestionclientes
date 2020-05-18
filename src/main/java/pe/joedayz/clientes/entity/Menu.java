@@ -94,7 +94,7 @@ public class Menu implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Menu[ codMenu=" + codMenu + " ]";
+		return "pe.com.siacoopapp.entity.Menu[ codMenu=" + codMenu + " ]";
 	}
 
 }

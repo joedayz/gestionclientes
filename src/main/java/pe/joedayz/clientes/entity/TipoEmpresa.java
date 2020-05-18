@@ -64,7 +64,7 @@ public class TipoEmpresa implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TipoEmpresa[ codigo=" + codigo + " ]";
+		return "pe.com.siacoopapp.entity.TipoEmpresa[ codigo=" + codigo + " ]";
 	}
 
 }

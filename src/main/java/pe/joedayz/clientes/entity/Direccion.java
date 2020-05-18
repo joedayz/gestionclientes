@@ -26,8 +26,10 @@ public class Direccion implements Serializable {
 	private String tipoDireccion;
 	@Column(name = "Tipo_Calle")
 	private String tipoCalle;
+
 	@Column(name = "Direcci\u00f3n")
 	private String direccion;
+
 	@Column(name = "Nro_direccion")
 	private String nrodireccion;
 	@Column(name = "Interior_Dpto")
@@ -60,7 +62,7 @@ public class Direccion implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "Cod_Socio", nullable = false)
-	private Socio socio;
+	private Cliente cliente;
 
 	@Column(name="Nombre_Tipo_Direccion")
 	private String nombreTipoDireccion;
@@ -85,7 +87,7 @@ public class Direccion implements Serializable {
 
 	public Direccion(String tipoDireccion, String nombreTipoDireccion, String tipoCalle, String direccion,
 			String nrodireccion, String interiorDpto, String mzDireccion,
-			String loteDreccion, String tipoAgrupacion, String lugar, Socio socio,
+			String loteDreccion, String tipoAgrupacion, String lugar, Cliente cliente,
 			String departamento, String provincia, String distrito, String codDpto, String codProvincia, String codDistrito) {
 
 		this.tipoDireccion = tipoDireccion;
@@ -98,7 +100,7 @@ public class Direccion implements Serializable {
 		this.loteDreccion = loteDreccion;
 		this.tipoAgrupacion = tipoAgrupacion;
 		this.lugar = lugar;
-		this.socio = socio;
+		this.cliente = cliente;
 
 		this.departamento = departamento;
 		this.provincia = provincia;
@@ -223,12 +225,12 @@ public class Direccion implements Serializable {
 		this.horaModifica = horaModifica;
 	}
 
-	public Socio getSocio() {
-		return socio;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setSocio(Socio socio) {
-		this.socio = socio;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 

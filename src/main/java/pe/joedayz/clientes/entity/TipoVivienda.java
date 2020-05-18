@@ -64,7 +64,7 @@ public class TipoVivienda implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TipoVivienda[ codigo=" + codigo + " ]";
+		return "pe.com.siacoopapp.entity.TipoVivienda[ codigo=" + codigo + " ]";
 	}
 
 }

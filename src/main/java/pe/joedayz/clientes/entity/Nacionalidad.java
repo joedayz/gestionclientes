@@ -63,7 +63,7 @@ public class Nacionalidad implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Nacionalidad[ codigo=" + codigo + " ]";
+		return "pe.com.siacoopapp.entity.Nacionalidad[ codigo=" + codigo + " ]";
 	}
 
 }

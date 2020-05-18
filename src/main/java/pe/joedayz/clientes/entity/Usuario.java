@@ -2,8 +2,12 @@ package pe.joedayz.clientes.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.*;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 @Entity
 @Table(name = "Usuarios")
@@ -12,8 +16,12 @@ import javax.persistence.*;
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@Basic(optional = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "Id")
+	private Integer id;
+
 	@Column(name = "Cod_Usuario")
 	private String codUsuario;
 	@Column(name = "Nom_Usuario")
@@ -23,28 +31,30 @@ public class Usuario implements Serializable {
 	@Column(name = "Fecha_Ingreso")
 	@Temporal(TemporalType.DATE)
 	private Date fechaIngreso;
-	@Column(name = "Menu_Inicial")
-	private Integer menuInicial;
+
 	@Column(name = "Grupo_Menus")
 	private String grupoMenus;
+
+
 	@Basic(optional = false)
 	@Column(name = "Active")
 	private boolean active;
-	@Basic(optional = false)
-	@Column(name = "Id_Role")
-	private String idRole;
 
-	public Usuario() {
+
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "Usuario_Role",
+			joinColumns = @JoinColumn(name = "User_Id"),
+			inverseJoinColumns = @JoinColumn(name = "Role_Id"))
+	private Set<Role> roles;
+
+
+	public Integer getId() {
+		return id;
 	}
 
-	public Usuario(String codUsuario) {
-		this.codUsuario = codUsuario;
-	}
-
-	public Usuario(String codUsuario, boolean active, String idRole) {
-		this.codUsuario = codUsuario;
-		this.active = active;
-		this.idRole = idRole;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getCodUsuario() {
@@ -79,12 +89,20 @@ public class Usuario implements Serializable {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public Integer getMenuInicial() {
-		return menuInicial;
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setMenuInicial(Integer menuInicial) {
-		this.menuInicial = menuInicial;
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	public String getGrupoMenus() {
@@ -95,44 +113,21 @@ public class Usuario implements Serializable {
 		this.grupoMenus = grupoMenus;
 	}
 
-	public boolean getActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
-	public String getIdRole() {
-		return idRole;
-	}
-
-	public void setIdRole(String idRole) {
-		this.idRole = idRole;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Usuario usuario = (Usuario) o;
+		return Objects.equals(id, usuario.id);
 	}
 
 	@Override
 	public int hashCode() {
-		int hash = 0;
-		hash += (codUsuario != null ? codUsuario.hashCode() : 0);
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (!(object instanceof Usuario)) {
-			return false;
-		}
-		Usuario other = (Usuario) object;
-		if ((this.codUsuario == null && other.codUsuario != null) || (this.codUsuario != null && !this.codUsuario.equals(other.codUsuario))) {
-			return false;
-		}
-		return true;
+		return Objects.hash(id);
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario[ codUsuario=" + codUsuario + " ]";
+		return ReflectionToStringBuilder.toString(this);
 	}
-
 }

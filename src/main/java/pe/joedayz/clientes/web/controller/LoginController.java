@@ -1,4 +1,4 @@
-package pe.joedayz.clientes.controller;
+package pe.joedayz.clientes.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -6,14 +6,16 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "Socios")
-@NamedQueries({
-		@NamedQuery(name = "Socio.findAll", query = "SELECT t FROM Socio t")})
-public class Socio implements Serializable {
+@Table(name = "Clientes")
+public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -24,6 +26,7 @@ public class Socio implements Serializable {
 	private String tipoPersona;
 	@Column(name = "Tipo_Documento")
 	private String tipoDocumento;
+	@NotEmpty
 	@Column(name = "Nro_Documento")
 	private String nroDocumento;
 	@Column(name = "Ape_Paterno")
@@ -35,6 +38,7 @@ public class Socio implements Serializable {
 	@Column(name = "Nom_Completo")
 	private String nomCompleto;
 
+	@Past
 	@Column(name = "Fecha_Nacimiento")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -64,13 +68,21 @@ public class Socio implements Serializable {
 	private String apeMatConyuge;
 	@Column(name = "Nom_Conyuge")
 	private String nomConyuge;
+
+	@NotEmpty
 	@Column(name = "Telefono_Fijo")
 	private String telefonoFijo;
+	@NotEmpty
 	@Column(name = "Telefono_Celular")
 	private String telefonoCelular;
+
+
+	@Email(message = "Correl Electronico es invalido")
+	@NotEmpty
 	@Column(name = "Correo_Electronico")
 	private String correoElectronico;
 
+	@Past
 	@Column(name = "Fecha_Apertura")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -87,6 +99,7 @@ public class Socio implements Serializable {
 	@Column(name = "Cargo")
 	private String cargo;
 
+	@Past
 	@Column(name = "Fecha_Ingreso")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -97,6 +110,7 @@ public class Socio implements Serializable {
 	@Column(name = "Razon_Social")
 	private String razonSocial;
 
+	@Past
 	@Column(name = "Fecha_Constitucion")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -112,8 +126,10 @@ public class Socio implements Serializable {
 	private String calInterna;
 	@Column(name = "Cal_Externa")
 	private String calExterna;
+
 	@Column(name = "Activo")
 	private Integer activo;
+
 	@Column(name = "Usuario_Registro")
 	private String usuarioRegistro;
 
@@ -142,16 +158,16 @@ public class Socio implements Serializable {
 	@Column(name = "Nom_Tipo_Documento")
 	private String nomTipoDocumento;
 
-	@OneToMany(mappedBy = "socio", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Direccion> direccionList = new ArrayList<>();
 
-	@OneToMany(mappedBy = "socio", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Representante> representanteList = new ArrayList<>();
 
-	public Socio() {
+	public Cliente() {
 	}
 
-	public Socio(Integer codSocio) {
+	public Cliente(Integer codSocio) {
 		this.codSocio = codSocio;
 	}
 
@@ -580,6 +596,7 @@ public class Socio implements Serializable {
 	@Transient
 	private Representante representanteNuevo = new Representante();
 
+
 	public Representante getRepresentanteNuevo() {
 		return representanteNuevo;
 	}
@@ -587,7 +604,6 @@ public class Socio implements Serializable {
 	public void setRepresentanteNuevo(Representante representanteNuevo) {
 		this.representanteNuevo = representanteNuevo;
 	}
-
 
 
 
@@ -601,10 +617,10 @@ public class Socio implements Serializable {
 	@Override
 	public boolean equals(Object object) {
 
-		if (!(object instanceof Socio)) {
+		if (!(object instanceof Cliente)) {
 			return false;
 		}
-		Socio other = (Socio) object;
+		Cliente other = (Cliente) object;
 		if ((this.codSocio == null && other.codSocio != null) || (this.codSocio != null && !this.codSocio.equals(other.codSocio))) {
 			return false;
 		}
@@ -613,7 +629,7 @@ public class Socio implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Socio[ codSocio=" + codSocio + " ]";
+		return "pe.com.siacoopapp.entity.Cliente[ codSocio=" + codSocio + " ]";
 	}
 
 }

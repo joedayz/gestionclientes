@@ -63,7 +63,7 @@ public class EstadoCivil implements Serializable {
 
 	@Override
 	public String toString() {
-		return "EstadoCivil[ codigo=" + codigo + " ]";
+		return "pe.com.siacoopapp.entity.EstadoCivil[ codigo=" + codigo + " ]";
 	}
 
 }

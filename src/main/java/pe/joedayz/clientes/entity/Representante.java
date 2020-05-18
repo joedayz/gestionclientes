@@ -32,10 +32,13 @@ public class Representante implements Serializable {
 	private String nombres;
 	@Column(name = "Cargo")
 	private Short cargo;
+
+
 	@Column(name = "Fecha_Cargo")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date fechaCargo;
+
 	@Column(name = "Fecha_Registro")
 	@Temporal(TemporalType.DATE)
 	private Date fechaRegistro;
@@ -59,7 +62,7 @@ public class Representante implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "Cod_Socio", nullable = false)
-	private Socio socio;
+	private Cliente cliente;
 
 	public Representante() {
 	}
@@ -69,7 +72,7 @@ public class Representante implements Serializable {
 	}
 
 	public Representante(String nroDocumento, String tipoDocumento, String apePaterno, String apeMaterno, String nombres, Short cargo,
-			Date fechaCargo,  String nomCargo, Socio socio) {
+			Date fechaCargo,  String nomCargo, Cliente cliente) {
 		this.nroDocumento = nroDocumento;
 		this.tipoDocumento = tipoDocumento;
 		this.apePaterno = apePaterno;
@@ -79,7 +82,7 @@ public class Representante implements Serializable {
 		this.fechaCargo = fechaCargo;
 
 		this.nomCargo = nomCargo;
-		this.socio = socio;
+		this.cliente = cliente;
 	}
 
 	public String getNroDocumento() {
@@ -186,12 +189,12 @@ public class Representante implements Serializable {
 		this.horaModifica = horaModifica;
 	}
 
-	public Socio getSocio() {
-		return socio;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setSocio(Socio socio) {
-		this.socio = socio;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public Integer getCodRepresentante() {

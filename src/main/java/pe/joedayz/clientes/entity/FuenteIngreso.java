@@ -62,7 +62,7 @@ public class FuenteIngreso implements Serializable {
 
 	@Override
 	public String toString() {
-		return "FuenteIngreso[ codigo=" + codigo + " ]";
+		return "pe.com.siacoopapp.entity.FuenteIngreso[ codigo=" + codigo + " ]";
 	}
 
 }
