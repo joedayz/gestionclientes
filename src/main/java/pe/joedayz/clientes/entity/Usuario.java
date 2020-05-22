@@ -11,17 +11,13 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 @Entity
 @Table(name = "Usuarios")
-@NamedQueries({
-		@NamedQuery(name = "Usuario.findAll", query = "SELECT t FROM Usuario t")})
 public class Usuario implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "Id")
 	private Integer id;
-
 	@Column(name = "Cod_Usuario")
 	private String codUsuario;
 	@Column(name = "Nom_Usuario")
@@ -31,16 +27,11 @@ public class Usuario implements Serializable {
 	@Column(name = "Fecha_Ingreso")
 	@Temporal(TemporalType.DATE)
 	private Date fechaIngreso;
-
 	@Column(name = "Grupo_Menus")
 	private String grupoMenus;
-
-
 	@Basic(optional = false)
 	@Column(name = "Active")
 	private boolean active;
-
-
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "Usuario_Role",

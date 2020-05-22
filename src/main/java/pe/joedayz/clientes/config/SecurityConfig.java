@@ -2,10 +2,8 @@ package pe.joedayz.clientes.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pe.joedayz.clientes.authentication.CustomUserAuthenticationProvider;
 import pe.joedayz.clientes.web.access.expression.CustomWebSecurityExpressionHandler;
 import pe.joedayz.clientes.web.access.intercept.FilterInvocationServiceSecurityMetadataSource;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -15,6 +13,7 @@ import org.springframework.context.annotation.Description;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,8 +32,6 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
 @Import({CustomAuthorizationConfig.class})
-// Thymeleaf needs to use the Thymeleaf configured FilterSecurityInterceptor
-// and not the default Filter from AutoConfiguration.
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -45,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 	@Autowired
-	private CustomUserAuthenticationProvider customUserAuthenticationProvider;
+	private AuthenticationProvider customUserAuthenticationProvider;
 
 	@Autowired
 	private AccessDecisionManager accessDecisionManager;

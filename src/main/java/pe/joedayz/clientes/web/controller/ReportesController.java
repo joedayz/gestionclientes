@@ -62,7 +62,6 @@ public class ReportesController {
 		String fileName = MediaTypeUtils.getReportName();
 		JasperPrint jasperPrint = null;
 
-
 		// Content-Type
 		// application/pdf
 		MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext, fileName);

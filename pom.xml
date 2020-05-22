@@ -115,6 +115,7 @@
 			<artifactId>jasperreports</artifactId>
 			<version>6.0.0</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
