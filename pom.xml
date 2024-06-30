@@ -98,7 +98,7 @@
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy-all</artifactId>
-			<version>3.0.20</version>
+			<version>3.0.22</version>
 		</dependency>
 		<dependency>
 			<groupId>com.itextpdf</groupId>
